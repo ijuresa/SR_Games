@@ -1,0 +1,42 @@
+﻿Merge remote-tracking branch 'origin/master'
+
+# Conflicts:
+#	SR_Games/SR_Games.pro.user
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 1 different commits each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   .gitignore
+#	modified:   SR_Games/SR_Games.pro
+#	modified:   SR_Games/SR_Games.pro.user
+#	new file:   SR_Games/assets/HelicopterClimb/img/helicopter1.png
+#	new file:   SR_Games/assets/HelicopterClimb/img/helicopter2.png
+#	new file:   SR_Games/assets/HelicopterClimb/img/helicopter3.png
+#	new file:   SR_Games/assets/HelicopterClimb/img/helicopter4.png
+#	new file:   SR_Games/assets/HelicopterClimb/img/helicopter5.png
+#	new file:   SR_Games/assets/HelicopterClimb/img/helicopter6.png
+#	new file:   SR_Games/assets/HelicopterClimb/img/helicopter7.png
+#	new file:   SR_Games/assets/HelicopterClimb/img/splash.png
+#	modified:   SR_Games/main.cpp
+#	new file:   SR_Games/qml/HelicopterClimb/HelicopterClimbMain.qml
+#	new file:   SR_Games/qml/HelicopterClimb/HelicopterClimbMain.qml.autosave
+#	new file:   SR_Games/qml/HelicopterClimb/MainItem.qml
+#	new file:   SR_Games/qml/HelicopterClimb/MainItem.qml.autosave
+#	new file:   SR_Games/qml/HelicopterClimb/common/SceneBase.qml
+#	new file:   SR_Games/qml/HelicopterClimb/scenes/SplashScene.qml
+#	modified:   SR_Games/qml/config.json
+#
+

@@ -2,6 +2,7 @@
 CONFIG += v-play
 
 qmlFolder.source = qml
+
 DEPLOYMENTFOLDERS += qmlFolder # comment for publishing
 
 assetsFolder.source = assets
@@ -41,3 +42,5 @@ win32 {
 macx {
     ICON = macx/app_icon.icns
 }
+
+DISTFILES +=
