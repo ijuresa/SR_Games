@@ -4,16 +4,17 @@ import QtQuick 2.0
 import "scenes"
 import "common"
 
-GameWindow {
-    id: window
-    screenWidth: 640
-    screenHeight: 960
+GameWindowItem {
+    id: helicopterWindow
     
-    property alias window: window
-    activeScene: splash
+    // Set property to this window ID
+    property alias window: helicopterWindow
+
+    // Input screen in game
+    activeScene: helicopterSplashScreen
 
     Component.onCompleted: {
-        splash.opacity = 1
+        helicopterSplashScreen.opacity = 1
         mainItemDelay.start()
     }
 
@@ -38,13 +39,14 @@ GameWindow {
         id: hideSplashDelay
         interval: 200
         onTriggered: {
-            splash.opacity = 0
+            helicopterSplashScreen.opacity = 0
         }
     }
 
-    SplashScene {
-        id: splash
+    HelicopterSplashScreen {
+        id: helicopterSplashScreen
     }
+
 }
 
 
