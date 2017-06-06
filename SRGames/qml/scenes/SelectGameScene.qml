@@ -6,10 +6,13 @@ import "../common"
 SceneBase {
     id: selectGameScene
 
+    // Indicate which game is pressed
+    signal gamePressed(string gamePressed)
+
     // background
     Rectangle {
         anchors.fill: parent.gameWindowAnchorItem
-        color: "#49a349"
+        color: "#47688e"
     }
 
     // back button to leave scene
@@ -31,7 +34,7 @@ SceneBase {
         SelectGameSceneButton {
             id: menuItem
             onClicked: {
-                // TODO:
+                gamePressed("HelicopterClimb.qml")
             }
             source: "../../assets/HelicopterClimb/img/Menu_Green_01.png"
 

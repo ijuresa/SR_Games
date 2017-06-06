@@ -19,9 +19,9 @@ GameWindow {
 
         // Button Listener
         // Changes scenes according to button click
+        onSelectGamePressed: window.state = "selectGame"
         onSelectLevelPressed: window.state = "selectLevel"
         onCreditsPressed: window.state = "credits"
-        onSelectGamePressed: window.state = "selectGame"
 
         // the menu scene is our start scene, so if back is pressed there we ask the user if he wants to quit the application
         onBackButtonPressed: {
