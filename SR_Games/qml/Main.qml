@@ -9,8 +9,8 @@ import "scenes"
 GameWindow {
     id: gameWindow
 
-    screenWidth: 960
-    screenHeight: 640
+    screenWidth: 640
+    screenHeight: 960
 
     // Menu scena
     MenuScene {
@@ -20,8 +20,8 @@ GameWindow {
     }
 
     // Helicopter
-    HelicopterSplashScreen {
-        id: helicopterSplashScreen
+    HelicopterMenuScene {
+        id: scene
         onBackButtonPressed: gameWindow.state = "menu"
     }
 
@@ -45,13 +45,8 @@ GameWindow {
 
          State {
             name: "helikopter"
-            PropertyChanges {target: helicopterSplashScreen; opacity: 1}
-            PropertyChanges {target: gameWindow; activeScene: helicopterSplashScreen}
-
-            Component.onCompleted: {
-            helicopterSplashScreen.opacity = 1
-            mainItemDelay.start()
-            }
+            PropertyChanges {target: scene; opacity: 1}
+            PropertyChanges {target: gameWindow; activeScene: scene}
          },
 
          State {
@@ -60,27 +55,4 @@ GameWindow {
             PropertyChanges {target: gameWindow; activeScene: creditsScene}
          }
     ]
-
-    Timer {
-        id: mainItemDelay
-        interval: 500
-        onTriggered: mainItemLoader.source = "HelicopterClimb/MainItem.qml"
-    }
-
-    Loader {
-        id: mainItemLoader
-        onLoaded: {
-            if(item) {
-                hideSplashDelay.start()
-            }
-        }
-    }
-
-    Timer {
-        id: hideSplashDelay
-        interval: 200
-        onTriggered: {
-            helicopterSplashScreen.opacity = 0
-        }
-    }
 }
