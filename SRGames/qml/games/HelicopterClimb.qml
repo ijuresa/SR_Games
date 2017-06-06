@@ -1,10 +1,10 @@
 import VPlay 2.0
 import QtQuick 2.0
 
-// EMPTY SCENE
+import "../common" as Common
 
-Scene {
-
+Common.LevelBase {
+    levelName: "HelicopterClimb.qml"
     Text {
         text: "V-Play"
         color: "blue"

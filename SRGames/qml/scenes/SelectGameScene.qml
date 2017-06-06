@@ -36,7 +36,7 @@ SceneBase {
             onClicked: {
                 gamePressed("HelicopterClimb.qml")
             }
-            source: "../../assets/HelicopterClimb/img/Menu_Green_01.png"
+            source: "../../assets/HelicopterClimb/img/helicopterButton.png"
 
         }
     }
