@@ -21,7 +21,7 @@ SceneBase {
         y: 30
         font.pixelSize: 30
         color: "#e9e9e9"
-        text: "MultiSceneMultiLevel"
+        text: "SR Games"
     }
 
     // menu

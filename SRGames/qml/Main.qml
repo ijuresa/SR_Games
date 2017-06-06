@@ -49,22 +49,33 @@ GameWindow {
         onBackButtonPressed: window.state = "menu"
     }
 
+    // Select Game Scene
+    SelectGameScene {
+        id: selectGameScene
+        onGamePressed: {
+           mainGameScene.setGame(gamePressed)
+            window.state = "gameOn"
+        }
+
+        onBackButtonPressed: window.state = "menu"
+    }
+
+    MainGameScene {
+        id: mainGameScene
+        onBackButtonPressed: window.state = "menu"
+    }
+
     // credits scene
     CreditsScene {
         id: creditsScene
         onBackButtonPressed: window.state = "menu"
     }
 
+
     // game scene to play a level
     GameScene {
         id: gameScene
         onBackButtonPressed: window.state = "selectLevel"
-    }
-
-    // Select Game Scene
-    SelectGameScene {
-        id: selectGameScene
-        onBackButtonPressed: window.state = "menu"
     }
 
     // Initially active scene
@@ -95,6 +106,11 @@ GameWindow {
         },
         State {
             name: "selectGame"
+            PropertyChanges { target: selectGameScene; opacity: 1 }
+            PropertyChanges { target: window; activeScene: selectGameScene }
+        },
+        State {
+            name: "gameOn"
             PropertyChanges { target: selectGameScene; opacity: 1 }
             PropertyChanges { target: window; activeScene: selectGameScene }
         }
