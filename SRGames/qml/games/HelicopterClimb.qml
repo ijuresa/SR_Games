@@ -14,6 +14,7 @@ Common.LevelBase {
 
     //Postavke fizike
     PhysicsWorld {
+
         id: world
         running: true
         gravity.y: 3.0
@@ -98,6 +99,53 @@ Common.LevelBase {
         }
     }
 
+    //Lijevi zid
+    EntityBase {
+        entityId: "wallL"
+        entityType: "wall"
+        height: parent.height
+        anchors {
+            left: parent.left
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            color: "green"
+        }
+
+        Text {
+
+        }
+
+        BoxCollider {
+            anchors.fill: parent
+            bodyType: Body.Static
+        }
+    }
+
+    //Desni zid
+    EntityBase {
+        entityId: "wallR"
+        entityType: "wall"
+        height: parent.height
+        anchors {
+            right: parent.right
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            color: "green"
+        }
+
+        Text {
+
+        }
+
+        BoxCollider {
+            anchors.fill: parent
+            bodyType: Body.Static
+        }
+    }
 
     //Helikopter
     EntityBase {
@@ -120,12 +168,20 @@ Common.LevelBase {
 
             fixture.onBeginContact: {
                 collisionSound.play();
+                collisionParticleEffect.start();
             }
         }
 
         SoundEffectVPlay {
             id: collisionSound
             source: "../../assets/HelicopterClimb/sound/collision.wav"
+        }
+
+        ParticleVPlay {
+          id: collisionParticleEffect
+          // make the particles float independent from the entity position - this would be the default setting, but for making it clear it is added explicitly here as well
+          positionType: 0
+          fileName: "SmokeParticle.json"
         }
     }
 }
