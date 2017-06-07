@@ -14,6 +14,8 @@ Item {
     height: sprite.height
 
     property alias source: sprite.source
+    property alias newWidth: sprite.width
+    property alias newHeight: sprite.height
 
     MultiResolutionImage {
         id: sprite
