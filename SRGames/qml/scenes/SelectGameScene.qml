@@ -48,7 +48,7 @@ SceneBase {
                 gamePressed("SpockLizard.qml")
             }
             // TODO: Change with Spock button
-            source: "../../assets/HelicopterClimb/img/helicopterButton.png"
+            source: "../../assets/RockPaper/img/spockPlayButton.png"
         }
     }
 }
