@@ -6,6 +6,9 @@ import "../common" as Common
 Common.LevelBase {
     levelName: "HelicopterClimb"
 
+    // score
+    property int score: 0
+
     BackgroundImage {
         id: backgroundImage
         source: "../../assets/HelicopterClimb/img/sky1920x1276.jpg"
@@ -96,6 +99,12 @@ Common.LevelBase {
         BoxCollider {
             anchors.fill: parent
             bodyType: Body.Static
+
+            fixture.onBeginContact: {
+                collisionSound.play();
+                collisionParticleEffect.start();
+                score++;
+            }
         }
     }
 
@@ -147,6 +156,24 @@ Common.LevelBase {
         }
     }
 
+    //Strop
+    EntityBase {
+        entityId: "wallT"
+        entityType: "ceiling"
+        anchors {
+            right: parent.right
+            left: parent.left
+            top: parent.top
+        }
+
+
+        BoxCollider {
+            anchors.fill: parent
+            bodyType: Body.Static
+        }
+    }
+
+
     //Helikopter
     EntityBase {
         entityId: "heli1"
@@ -166,10 +193,10 @@ Common.LevelBase {
             height: 64
             anchors.centerIn: parent
 
-            fixture.onBeginContact: {
+            /*fixture.onBeginContact: {
                 collisionSound.play();
                 collisionParticleEffect.start();
-            }
+            }*/
         }
 
         SoundEffectVPlay {
@@ -184,5 +211,18 @@ Common.LevelBase {
           fileName: "../../assets/particleEffect/SmokeParticle.json"
         }
     }
+
+    //Score displayed
+    Text {
+        id: textScore
+        x: parent.width/2
+        anchors.top: parent.top
+        anchors.topMargin: 10
+        color: "white"
+        font.pixelSize: 30
+        text: score
+    }
+
+
 }
 
