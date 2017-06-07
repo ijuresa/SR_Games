@@ -181,7 +181,7 @@ Common.LevelBase {
           id: collisionParticleEffect
           // make the particles float independent from the entity position - this would be the default setting, but for making it clear it is added explicitly here as well
           positionType: 0
-          fileName: "SmokeParticle.json"
+          fileName: "../../assets/particleEffect/SmokeParticle.json"
         }
     }
 
