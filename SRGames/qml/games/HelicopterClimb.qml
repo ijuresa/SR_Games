@@ -4,7 +4,7 @@ import QtQuick 2.0
 import "../common" as Common
 
 Common.LevelBase {
-    levelName: "HelicopterClimb.qml"
+    levelName: "HelicopterClimb"
 
     BackgroundImage {
         id: backgroundImage
@@ -128,8 +128,5 @@ Common.LevelBase {
             source: "../../assets/HelicopterClimb/sound/collision.wav"
         }
     }
-
-
-
-
 }
+

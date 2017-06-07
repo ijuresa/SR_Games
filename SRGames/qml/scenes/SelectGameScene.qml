@@ -26,7 +26,7 @@ SceneBase {
         onClicked: backButtonPressed()
     }
 
-    Row {
+    Column {
         spacing: 18
         anchors.horizontalCenter: parent.horizontalCenter
         height: menuItem.height
@@ -37,7 +37,14 @@ SceneBase {
                 gamePressed("HelicopterClimb.qml")
             }
             source: "../../assets/HelicopterClimb/img/helicopterButton.png"
+        }
 
+        SelectGameSceneButton {
+            onClicked: {
+                gamePressed("SpockLizard.qml")
+            }
+            // TODO: Change with Spock button
+            source: "../../assets/HelicopterClimb/img/helicopterButton.png"
         }
     }
 }
