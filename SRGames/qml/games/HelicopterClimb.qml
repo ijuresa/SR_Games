@@ -6,6 +6,8 @@ import "../common" as Common
 Common.LevelBase {
     levelName: "HelicopterClimb"
 
+
+
     // score
     property int score: 0
 
@@ -193,10 +195,6 @@ Common.LevelBase {
             height: 64
             anchors.centerIn: parent
 
-            /*fixture.onBeginContact: {
-                collisionSound.play();
-                collisionParticleEffect.start();
-            }*/
         }
 
         SoundEffectVPlay {
@@ -206,9 +204,14 @@ Common.LevelBase {
 
         ParticleVPlay {
           id: collisionParticleEffect
+          property string smokeFilePath: "../../assets/particleEffect/SmokeParticle.json"
+          property string fireFilePath: "../../assets/particleEffect/FireParticle.json"
+          fileName: (score > 20) ? collisionParticleEffect.fireFilePath : collisionParticleEffect.smokeFilePath
           // make the particles float independent from the entity position - this would be the default setting, but for making it clear it is added explicitly here as well
           positionType: 0
-          fileName: "../../assets/particleEffect/SmokeParticle.json"
+
+
+
         }
     }
 
