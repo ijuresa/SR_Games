@@ -11,7 +11,6 @@ Common.LevelBase {
         color: "#47688e"
     }
 
-
     Row {
         spacing: 10
         height: rockImage.height
@@ -20,7 +19,10 @@ Common.LevelBase {
 
         Common.SelectGameSceneButton {
             id: rockImage
-            width: newWidth / 2
+            newSourceSizeWidth: parent.width / 5
+            newSourceSizeHeight: parent.height / 5
+            anchors.leftMargin: 10
+
             onClicked: {
 
             }
@@ -29,7 +31,12 @@ Common.LevelBase {
 
         Common.SelectGameSceneButton {
             id: paperImage
-            width: newWidth / 2
+            newSourceSizeWidth: parent.width / 5
+            newSourceSizeHeight: parent.height / 5
+
+            anchors.left: rockImage.right
+            anchors.leftMargin: rockImage.newSourceSizeWidth + 3
+
             onClicked: {
 
             }
@@ -38,7 +45,11 @@ Common.LevelBase {
 
         Common.SelectGameSceneButton {
             id: scissorsImage
-            width: newWidth / 2
+            newSourceSizeWidth: parent.width / 5
+            newSourceSizeHeight: parent.height / 5
+
+            anchors.left: paperImage.right
+            anchors.leftMargin: rockImage.newSourceSizeWidth + 3
             onClicked: {
 
             }
@@ -47,7 +58,11 @@ Common.LevelBase {
 
         Common.SelectGameSceneButton {
             id: lizardImage
-            width: newWidth / 2
+            newSourceSizeWidth: parent.width / 5
+            newSourceSizeHeight: parent.height / 5
+
+            anchors.left: scissorsImage.right
+            anchors.leftMargin: rockImage.newSourceSizeWidth + 3
             onClicked: {
 
             }
@@ -56,7 +71,11 @@ Common.LevelBase {
 
         Common.SelectGameSceneButton {
             id: spockImage
-            width: newWidth / 2
+            newSourceSizeWidth: parent.width / 5
+            newSourceSizeHeight: parent.height / 5
+
+            anchors.left: lizardImage.right
+            anchors.leftMargin: rockImage.newSourceSizeWidth + 3
             onClicked: {
 
             }
@@ -66,45 +85,4 @@ Common.LevelBase {
     }
 
 
-//    Grid {
-//        anchors.centerIn: parent
-//        spacing: 10
-//        columns: 5
-
-//        Common.SelectGameSceneButton {
-//            id: rockImage
-//            width: newWidth / 2
-//            onClicked: {
-
-//            }
-//            source: "../../assets/RockPaper/img/rock.png"
-//        }
-
-//        Common.SelectGameSceneButton {
-//            id: scissorsImage
-//            width: 50
-//            onClicked: {
-
-//            }
-//            source: "../../assets/RockPaper/img/scissors.png"
-//        }
-
-//        Common.SelectGameSceneButton {
-//            id: lizardImage
-//            width: parent.width / 5
-//            onClicked: {
-
-//            }
-//            source: "../../assets/RockPaper/img/lizard.png"
-//        }
-
-//        Common.SelectGameSceneButton {
-//            id: spockImage
-//            width: parent.width / 5
-//            onClicked: {
-
-//            }
-//            source: "../../assets/RockPaper/img/spock.png"
-//        }
-//    }
 }

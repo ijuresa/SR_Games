@@ -10,14 +10,16 @@ Item {
     signal pressed
     signal released
 
-    width: sprite.width
-    height: sprite.height
+    //width: sprite.width
+    //height: sprite.height
 
     property alias source: sprite.source
     property alias newWidth: sprite.width
     property alias newHeight: sprite.height
+    property alias newSourceSizeWidth: sprite.sourceSize.width
+    property alias newSourceSizeHeight: sprite.sourceSize.height
 
-    MultiResolutionImage {
+    Image {
         id: sprite
     }
 

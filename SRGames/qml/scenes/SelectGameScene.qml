@@ -33,6 +33,8 @@ SceneBase {
 
         SelectGameSceneButton {
             id: menuItem
+            width: newWidth
+            height: newHeight
             onClicked: {
                 gamePressed("HelicopterClimb.qml")
             }
@@ -40,6 +42,8 @@ SceneBase {
         }
 
         SelectGameSceneButton {
+            width: newWidth
+            height: newHeight
             onClicked: {
                 gamePressed("SpockLizard.qml")
             }
