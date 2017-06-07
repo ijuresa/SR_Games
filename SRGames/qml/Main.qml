@@ -53,7 +53,7 @@ GameWindow {
     SelectGameScene {
         id: selectGameScene
         onGamePressed: {
-           mainGameScene.setGame(gamePressed)
+            mainGameScene.setGame(gamePressed)
             window.state = "gameOn"
         }
 
