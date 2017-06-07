@@ -62,7 +62,7 @@ GameWindow {
 
     MainGameScene {
         id: mainGameScene
-        onBackButtonPressed: window.state = "menu"
+        onBackButtonPressed: window.state = "selectGame"
     }
 
     // credits scene
@@ -111,8 +111,8 @@ GameWindow {
         },
         State {
             name: "gameOn"
-            PropertyChanges { target: selectGameScene; opacity: 1 }
-            PropertyChanges { target: window; activeScene: selectGameScene }
+            PropertyChanges { target: mainGameScene; opacity: 1 }
+            PropertyChanges { target: window; activeScene: mainGameScene }
         }
     ]
 }
