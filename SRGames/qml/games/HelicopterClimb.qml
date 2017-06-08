@@ -6,19 +6,28 @@ import QtMultimedia 5.0
 import "../common" as Common
 
 Common.LevelBase {
+    id: heliClimb
     levelName: "HelicopterClimb"
 
-
-
+    // default state for sensor
+    state: "default"
     // score
     property int score: 0
-    // helikopter pozicija
 
 
+
+    //Pozadina
     BackgroundImage {
         id: backgroundImage
         source: "../../assets/HelicopterClimb/img/sky1920x1276.jpg"
         anchors.fill: parent
+    }
+
+    //Pozadinski zvukovi
+    BackgroundMusic {
+        id: heliSound
+        source:  "../../assets/HelicopterClimb/sound/heliSound.wav"
+        autoPlay: true
     }
 
     //Postavke fizike
@@ -26,7 +35,7 @@ Common.LevelBase {
 
         id: world
         running: true
-        gravity.y: -2.0
+        gravity.y: -3.0
         z: 10
 
         updatesPerSecondForPhysics: 60
@@ -81,6 +90,8 @@ Common.LevelBase {
            }
 }
 
+    //TODO Maknuti state change kod poda////////////////////////////
+
 
     //Pod
     EntityBase {
@@ -98,10 +109,6 @@ Common.LevelBase {
             color: "green"
         }
 
-        Text {
-
-        }
-
         BoxCollider {
             anchors.fill: parent
             bodyType: Body.Static
@@ -110,6 +117,10 @@ Common.LevelBase {
                 collisionSound.play();
                 collisionParticleEffect.start();
                 score++;
+                //DEBUG
+                heliClimb.state = "rotated"
+                timer.start()
+
             }
         }
     }
@@ -186,9 +197,17 @@ Common.LevelBase {
         entityId: "heli1"
         entityType: "heli"
         x: parent.width / 2
-        y: parent.top
-        Behavior on x { SmoothedAnimation {velocity: 200}}
-        Behavior on y { SmoothedAnimation {velocity: 200}}
+        y: parent.height / 2
+        //rotation: 90
+        //Behavior on x { SmoothedAnimation {velocity: 200}}
+        //Behavior on y { SmoothedAnimation {velocity: 200}}
+
+        //Reset pozicije helikoptera
+        function heliReset()
+        {
+            x = parent.width /2
+            y = parent.top
+        }
 
         AnimatedImage {
             id: heliImage
@@ -203,7 +222,12 @@ Common.LevelBase {
             height: 64
             anchors.centerIn: parent
 
+            fixture.onBeginContact:
+            {
+                heliSound.play()
+            }
         }
+
 
         SoundEffectVPlay {
             id: collisionSound
@@ -253,35 +277,41 @@ Common.LevelBase {
             State {
                 name: "rotated"
                 PropertyChanges { target: heli1; rotation: 180 }
+                PropertyChanges { target: world;
+                    gravity.y: -(world.gravity.y)
+
+                }
+
                 },
             State {
                 name: "default"
-                PropertyChanges { target: heli1; rotation: 0;
-                    x: parent.width / 2 - (heli1.width / 2)
-                    y: parent.height / 2 - (heli1.height);
+                PropertyChanges { target: heli1;
+                    rotation: 0;
                 }
             },
             State {
                 name: "whipped"
-                PropertyChanges { target: heli1; rotation: 0; x:0; }
+                PropertyChanges { target: heli1;
+                    rotation: 0; y: heli1.y + 30; }
             },
             State {
                 name: "twistedR"
-                PropertyChanges { target: heli1; rotation: 270;
-                    x:parent.width - heli1.width;
+                PropertyChanges { target: heli1;
+                    rotation: 30;
+                    x: heli1.x +20;
                 }
             },
             State {
                 name: "twistedL"
-                PropertyChanges { target: heli1; rotation: 270;
-                    x:0;
+                PropertyChanges { target: heli1;
+                    rotation: -30;
+                    x: heli1.x -20;
                 }
             },
             State {
                 name :"slammed"
                 PropertyChanges { target: heli1; rotation: 0;
-                    x: 0;
-                    y: 0 + 30
+                    y: heli1.y + 30
                 }
             }
         ]
@@ -290,66 +320,85 @@ Common.LevelBase {
     SensorGesture {
             id: sensorGesture
             enabled: true
-            gestures : ["QtSensors.shake", "QtSensors.whip", "QtSensors.twist", "QtSensors.cover",
+            gestures : ["QtSensors.shake2","QtSensors.shake", "QtSensors.whip", "QtSensors.twist", "QtSensors.cover",
                 "QtSensors.hover", "QtSensors.turnover", "QtSensors.pickup", "QtSensors.slam" , "QtSensors.doubletap"]
             onDetected:{
                 console.debug(gesture)
                 sensorLabel.text = gesture
 
                 if (gesture == "shake") {
-                    parent.state == "rotated" ? parent.state = "default" : parent.state = "rotated"
+                    heliClimb.state = "default"
                     timer.start()
                 }
                 if (gesture == "whip") {
-                    parent.state == "whipped" ? parent.state = "default" : parent.state = "whipped"
+                    heliClimb.state == "whipped" ? heliClimb.state = "default" : heliClimb.state = "whipped"
                     timer.start()
 
                 }
                 if (gesture == "twistRight") {
-                    parent.state == "twistedR" ? parent.state = "default" : parent.state = "twistedR"
+                    heliClimb.state == "twistedR" ? heliClimb.state = "default" : heliClimb.state = "twistedR"
                     timer.start()
                 }
                 if (gesture == "twistLeft") {
-                    parent.state == "twistedL" ? parent.state = "default" : parent.state = "twistedL"
+                    heliClimb.state == "twistedL" ? heliClimb.state = "default" : heliClimb.state = "twistedL"
                     timer.start()
                 }
                 if (gesture == "cover") {
-                    parent.state == "covered" ? parent.state = "default" : parent.state = "covered"
+                    heliClimb.state == "covered" ? heliClimb.state = "default" : heliClimb.state = "covered"
                     timer.start()
                 }
                 if (gesture == "hover") {
-                    parent.state == "hovered" ? parent.state = "default" : parent.state = "hovered"
+                    heliClimb.state == "hovered" ? heliClimb.state = "default" : heliClimb.state = "hovered"
                     timer.start()
                 }
                 if (gesture == "turnover") {
-                    parent.state = "default"
+                    heliClimb.state == "rotated" ? heliClimb.state = "default" : heliClimb.state = "rotated"
 
                     timer.start()
                 }
                 if (gesture == "pickup") {
-                    parent.state = "default"
+                    heliClimb.state = "default"
 
                     timer.start()
                 }
                 if (gesture == "slam") {
-                    parent.state == "slammed" ? parent.state = "default" : parent.state = "slammed"
+                    heliClimb.state == "slammed" ? heliClimb.state = "default" : heliClimb.state = "slammed"
                     timer.start()
                 }
                 if (gesture == "doubletap") {
-                    parent.state == "doubletapped" ? parent.state = "default" : parent.state = "doubletapped"
+                    heliClimb.state == "doubletapped" ? heliClimb.state = "default" : heliClimb.state = "doubletapped"
                     timer.start()
                 }
             }
         }
+
+        //Timer za gesture
         Timer {
             id: timer
             running: false
             repeat: false
-            interval: 3000
+            interval: 300
             onTriggered: {
+                console.debug("available gestures"+sensorGesture.availableGestures)
+                console.debug("invalid gestures"+sensorGesture.invalidGestures)
+                console.debug("valid gestures"+sensorGesture.validGestures)
                 console.log("timer triggered")
-                parent.state = "default"
-                label.text = "Try another gesture"
+                console.log("timer triggered")
+                console.log("gravitacija "+world.gravity)
+                console.log("state:"+heliClimb.state)
+                heliClimb.state = "default"
+                sensorLabel.text = "Try another gesture"
+            }
+        }
+
+        //General purpose activation timer
+        Timer {
+            id: syncTimer
+            running: true
+            repeat: true
+            interval: 300
+            onTriggered: {
+                if (heliSound.playing == false) heliSound.play()
             }
         }
 }
