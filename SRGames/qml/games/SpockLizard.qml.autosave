@@ -353,7 +353,7 @@ Common.LevelBase {
             roundOverTimer = 3
             if(soundChooser == 3) {
                 unrealKillingSpree.play()
-                game
+               
             } else if(soundChooser == 5) {
                 unrealRampage.play()
             } else if(soundChooser == 9) {

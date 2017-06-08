@@ -6,8 +6,8 @@ SceneBase {
     id: menuScene
 
     signal selectLevelPressed
-    signal creditsPressed
     signal selectGamePressed
+    signal showAchivementsPressed
 
     // background
     Rectangle {
@@ -36,6 +36,12 @@ SceneBase {
         MenuButton {
             text: "Levels"
             onClicked: selectLevelPressed()
+        }
+
+        MenuButton {
+            text: "Show Achivements"
+            onClicked: showAchivementsPressed()
+
         }
     }
 }

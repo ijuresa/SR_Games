@@ -13,6 +13,19 @@ GameWindow {
         id: entityManager
     }
 
+    ShowAchivements {
+        id: showAchivementsScene
+
+        VPlayGameNetwork {
+            id: gameNetwork
+        }
+
+        onAchivementsPressed: {
+            gameNetwork.showAchievements()
+            window.state = "achivements"
+        }
+    }
+
     // MENU scene
     MenuScene {
         id: menuScene
@@ -21,7 +34,7 @@ GameWindow {
         // Changes scenes according to button click
         onSelectGamePressed: window.state = "selectGame"
         onSelectLevelPressed: window.state = "selectLevel"
-        onCreditsPressed: window.state = "credits"
+        onShowAchivementsPressed: window.state = "achivements"
 
         // When user wants to exit from MENU scene
         onBackButtonPressed: {
@@ -100,6 +113,12 @@ GameWindow {
             name: "gameOn"
             PropertyChanges { target: mainGameScene; opacity: 1 }
             PropertyChanges { target: window; activeScene: mainGameScene }
+        },
+        State {
+            name: "achivements"
+            PropertyChanges { target: showAchivementsScene; opacity: 1 }
+            PropertyChanges { target: window; activeScene: showAchivementsScene }
         }
+
     ]
 }
