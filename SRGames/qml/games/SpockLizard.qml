@@ -20,6 +20,8 @@ Common.LevelBase {
     property bool isComputerCardVisible: false
     property int computer: 2
 
+    property int none: 3
+
     property int roundOverTimer: 3
     property bool isGameOn: false
 
@@ -39,6 +41,12 @@ Common.LevelBase {
 
     // Winner
     property int winnerOfTheRound
+    property var outcomeOfTheRound
+
+    property string winner: "Win"
+    property string loser: "Lose"
+    property string draw: "Draw"
+
 
     Rectangle {
         anchors.fill: parent
@@ -75,6 +83,11 @@ Common.LevelBase {
 
                     // Check who wins
                     checkWinner()
+                    if(winnerOfTheRound == player) {
+                        outcomeOfTheRound = winner
+                    } else if(winnerOfTheRound == computer) {
+                        outcomeOfTheRound = loser
+                    } else outcomeOfTheRound = draw
 
                     // Reset timer
                     roundOverTimer = 3
@@ -104,6 +117,11 @@ Common.LevelBase {
 
                     // Check who wins
                     checkWinner()
+                    if(winnerOfTheRound == player) {
+                        outcomeOfTheRound = winner
+                    } else if(winnerOfTheRound == computer) {
+                        outcomeOfTheRound = loser
+                    } else outcomeOfTheRound = draw
 
                     roundOverTimer = 3
                 }
@@ -131,6 +149,11 @@ Common.LevelBase {
 
                     // Check who wins
                     checkWinner()
+                    if(winnerOfTheRound == player) {
+                        outcomeOfTheRound = winner
+                    } else if(winnerOfTheRound == computer) {
+                        outcomeOfTheRound = loser
+                    } else outcomeOfTheRound = draw
 
                     roundOverTimer = 3
                 }
@@ -158,6 +181,11 @@ Common.LevelBase {
 
                     // Check who wins
                     checkWinner()
+                    if(winnerOfTheRound == player) {
+                        outcomeOfTheRound = winner
+                    } else if(winnerOfTheRound == computer) {
+                        outcomeOfTheRound = loser
+                    } else outcomeOfTheRound = draw
 
                     roundOverTimer = 3
                 }
@@ -185,6 +213,11 @@ Common.LevelBase {
 
                     // Check who wins
                     checkWinner()
+                    if(winnerOfTheRound == player) {
+                        outcomeOfTheRound = winner
+                    } else if(winnerOfTheRound == computer) {
+                        outcomeOfTheRound = loser
+                    } else outcomeOfTheRound = draw
 
                     roundOverTimer = 3
                 }
@@ -203,8 +236,8 @@ Common.LevelBase {
         anchors.leftMargin: 10
 
         color: "white"
-        font.pixelSize: 30
-        text: "Max Score"
+        font.pixelSize: 25
+        text: "Max Score:"
     }
 
     // Display max score
@@ -217,7 +250,7 @@ Common.LevelBase {
         anchors.leftMargin: 10
 
         color: "white"
-        font.pixelSize: 30
+        font.pixelSize: 25
         text: scoreMax
     }
 
@@ -225,7 +258,7 @@ Common.LevelBase {
     Text {
         id: score
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: 40
+        anchors.verticalCenterOffset: 80
 
         color: "white"
         font.pixelSize: 30
@@ -444,139 +477,137 @@ Common.LevelBase {
         if(playerCard === cards.Rock) {
             /* PLAYER Wins */
             if(computerCard === cards.Lizard) {
-                winnerOfTheRound = player
-                scoreCurr ++
+                winnerOfTheRound = computer
+                checkIfNewHighScore()
             }
             else if(computerCard === cards.Scissors) {
-                winnerOfTheRound = player
-                scoreCurr ++
+                winnerOfTheRound = computer
+                checkIfNewHighScore()
             }
 
             /* COMPUTER Wins */
             else if(computerCard === cards.Paper) {
-                winnerOfTheRound = computer
-                checkIfNewHighScore()
+                winnerOfTheRound = player
+                scoreCurr ++
             }
             else if(computerCard === cards.Spock) {
-                winnerOfTheRound = computer
-                checkIfNewHighScore()
+                winnerOfTheRound = player
+                scoreCurr ++
             }
 
             /* TIE */
             else {
-                // TODO: TIE
+                winnerOfTheRound = none
             }
         }
 
         else if(playerCard === cards.Paper) {
             /* PLAYER Wins */
             if(computerCard === cards.Rock) {
-                winnerOfTheRound = player
-                scoreCurr ++
+                winnerOfTheRound = computer
+                checkIfNewHighScore()
             }
             else if(computerCard === cards.Spock) {
-                winnerOfTheRound = player
-                scoreCurr ++
+                winnerOfTheRound = computer
+                checkIfNewHighScore()
             }
 
             /* COMPUTER Wins */
             else if(computerCard === cards.Scissors) {
-                winnerOfTheRound = computer
-                checkIfNewHighScore()
+                winnerOfTheRound = player
+                scoreCurr ++
             }
             else if(computerCard === cards.Lizard) {
-                winnerOfTheRound = computer
-                checkIfNewHighScore()
+                winnerOfTheRound = player
+                scoreCurr ++
             }
 
             /* TIE */
             else {
-                // TODO: TIE
+                winnerOfTheRound = none
             }
         }
 
         else if(playerCard === cards.Scissors) {
             /* PLAYER Wins */
             if(computerCard === cards.Paper) {
-                winnerOfTheRound = player
-                scoreCurr ++
+                winnerOfTheRound = computer
+                checkIfNewHighScore()
             }
             else if(computerCard === cards.Lizard) {
-                winnerOfTheRound = player
-                scoreCurr ++
+                winnerOfTheRound = computer
+                checkIfNewHighScore()
             }
 
             /* COMPUTER Wins */
             else if(computerCard === cards.Rock) {
-                winnerOfTheRound = computer
-                checkIfNewHighScore()
+                winnerOfTheRound = player
+                scoreCurr ++
             }
             else if(computerCard === cards.Spock) {
-                winnerOfTheRound = computer
-                checkIfNewHighScore()
+                winnerOfTheRound = player
+                scoreCurr ++
             }
 
             /* TIE */
             else {
-                // TODO: TIE
+                winnerOfTheRound = none
             }
         }
 
         else if(playerCard === cards.Lizard) {
             /* PLAYER Wins */
             if(computerCard === cards.Spock) {
-                winnerOfTheRound = player
-                scoreCurr ++
+                winnerOfTheRound = computer
+                checkIfNewHighScore()
             }
             else if(computerCard === cards.Paper) {
-                winnerOfTheRound = player
-                scoreCurr ++
+                winnerOfTheRound = computer
+                checkIfNewHighScore()
             }
 
             /* COMPUTER Wins */
             else if(computerCard === cards.Rock) {
-                winnerOfTheRound = computer
-                checkIfNewHighScore()
+                winnerOfTheRound = player
+                scoreCurr ++
             }
             else if(computerCard === cards.Scissors) {
-                winnerOfTheRound = computer
-                checkIfNewHighScore()
+                winnerOfTheRound = player
+                scoreCurr ++
             }
 
             /* TIE */
             else {
-                // TODO: TIE
+                winnerOfTheRound = none
             }
         }
 
         else if(playerCard === cards.Spock) {
             /* PLAYER Wins */
             if(computerCard === cards.Scissors) {
-                winnerOfTheRound = player
-                scoreCurr ++
+                winnerOfTheRound = computer
+                checkIfNewHighScore()
             }
             else if(computerCard === cards.Rock) {
-                winnerOfTheRound = player
-                scoreCurr ++
+                winnerOfTheRound = computer
+                checkIfNewHighScore()
             }
 
             /* COMPUTER Wins */
             else if(computerCard === cards.Lizard) {
-                winnerOfTheRound = computer
-                checkIfNewHighScore()
+                winnerOfTheRound = player
+                scoreCurr ++
             }
             else if(computerCard === cards.Paper) {
-                winnerOfTheRound = computer
-                checkIfNewHighScore()
+                winnerOfTheRound = player
+                scoreCurr ++
             }
 
             /* TIE */
             else {
-                // TODO: TIE
+                winnerOfTheRound = none
             }
         }
-
-
     }
 
     // Timer for countdown between rounds
@@ -595,10 +626,20 @@ Common.LevelBase {
     // Text to display timer
     Text {
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: - 40
+        anchors.verticalCenterOffset:  - 80
         color: "white"
-        font.pixelSize: roundOverTimer > 0 ? 160 : 18
-        text: roundOverTimer > 0 ? roundOverTimer : "Start!"
+        font.pixelSize: roundOverTimer > 0 ? 50 : 18
+        text: roundOverTimer > 0 ? roundOverTimer : ""
+
+    }
+
+    // Display Win, Lose or Draw
+    Text {
+        anchors.centerIn: parent
+        anchors.verticalCenterOffset: 120
+        color: "white"
+        font.pixelSize: 70
+        text: roundOverTimer > 0 ? outcomeOfTheRound : ""
     }
 
 }
