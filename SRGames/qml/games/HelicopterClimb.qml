@@ -1,5 +1,7 @@
 import VPlay 2.0
 import QtQuick 2.0
+import QtSensors 5.0
+import QtMultimedia 5.0
 
 import "../common" as Common
 
@@ -10,6 +12,8 @@ Common.LevelBase {
 
     // score
     property int score: 0
+    // helikopter pozicija
+
 
     BackgroundImage {
         id: backgroundImage
@@ -22,7 +26,7 @@ Common.LevelBase {
 
         id: world
         running: true
-        gravity.y: 3.0
+        gravity.y: -2.0
         z: 10
 
         updatesPerSecondForPhysics: 60
@@ -178,9 +182,13 @@ Common.LevelBase {
 
     //Helikopter
     EntityBase {
+        id: heli1
         entityId: "heli1"
         entityType: "heli"
         x: parent.width / 2
+        y: parent.top
+        Behavior on x { SmoothedAnimation {velocity: 200}}
+        Behavior on y { SmoothedAnimation {velocity: 200}}
 
         AnimatedImage {
             id: heliImage
@@ -226,6 +234,123 @@ Common.LevelBase {
         text: score
     }
 
+    Text {
+        id: sensorLabel
+        anchors {
+            top: parent.top
+            topMargin: 10
+            left: parent.left
+            leftMargin: 10
+            }
+        color: "white"
+        font.pixelSize: 20
+        text: "Sensor gesture:"
+    }
 
+
+    //States for sensor movement
+    states: [
+            State {
+                name: "rotated"
+                PropertyChanges { target: heli1; rotation: 180 }
+                },
+            State {
+                name: "default"
+                PropertyChanges { target: heli1; rotation: 0;
+                    x: parent.width / 2 - (heli1.width / 2)
+                    y: parent.height / 2 - (heli1.height);
+                }
+            },
+            State {
+                name: "whipped"
+                PropertyChanges { target: heli1; rotation: 0; x:0; }
+            },
+            State {
+                name: "twistedR"
+                PropertyChanges { target: heli1; rotation: 270;
+                    x:parent.width - heli1.width;
+                }
+            },
+            State {
+                name: "twistedL"
+                PropertyChanges { target: heli1; rotation: 270;
+                    x:0;
+                }
+            },
+            State {
+                name :"slammed"
+                PropertyChanges { target: heli1; rotation: 0;
+                    x: 0;
+                    y: 0 + 30
+                }
+            }
+        ]
+
+    //Sensor movement
+    SensorGesture {
+            id: sensorGesture
+            enabled: true
+            gestures : ["QtSensors.shake", "QtSensors.whip", "QtSensors.twist", "QtSensors.cover",
+                "QtSensors.hover", "QtSensors.turnover", "QtSensors.pickup", "QtSensors.slam" , "QtSensors.doubletap"]
+            onDetected:{
+                console.debug(gesture)
+                sensorLabel.text = gesture
+
+                if (gesture == "shake") {
+                    parent.state == "rotated" ? parent.state = "default" : parent.state = "rotated"
+                    timer.start()
+                }
+                if (gesture == "whip") {
+                    parent.state == "whipped" ? parent.state = "default" : parent.state = "whipped"
+                    timer.start()
+
+                }
+                if (gesture == "twistRight") {
+                    parent.state == "twistedR" ? parent.state = "default" : parent.state = "twistedR"
+                    timer.start()
+                }
+                if (gesture == "twistLeft") {
+                    parent.state == "twistedL" ? parent.state = "default" : parent.state = "twistedL"
+                    timer.start()
+                }
+                if (gesture == "cover") {
+                    parent.state == "covered" ? parent.state = "default" : parent.state = "covered"
+                    timer.start()
+                }
+                if (gesture == "hover") {
+                    parent.state == "hovered" ? parent.state = "default" : parent.state = "hovered"
+                    timer.start()
+                }
+                if (gesture == "turnover") {
+                    parent.state = "default"
+
+                    timer.start()
+                }
+                if (gesture == "pickup") {
+                    parent.state = "default"
+
+                    timer.start()
+                }
+                if (gesture == "slam") {
+                    parent.state == "slammed" ? parent.state = "default" : parent.state = "slammed"
+                    timer.start()
+                }
+                if (gesture == "doubletap") {
+                    parent.state == "doubletapped" ? parent.state = "default" : parent.state = "doubletapped"
+                    timer.start()
+                }
+            }
+        }
+        Timer {
+            id: timer
+            running: false
+            repeat: false
+            interval: 3000
+            onTriggered: {
+                console.log("timer triggered")
+                parent.state = "default"
+                label.text = "Try another gesture"
+            }
+        }
 }
 
