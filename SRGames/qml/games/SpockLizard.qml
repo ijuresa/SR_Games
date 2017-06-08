@@ -6,7 +6,6 @@ import "../common" as Common
 Common.LevelBase {
     levelName: "SpockLizard"
 
-    property bool cardPicked: false
     property var cards: { "Rock": 1, "Paper": 2, "Scissors": 3,
                             "Lizard": 4, "Spock": 5 }
 
@@ -36,8 +35,8 @@ Common.LevelBase {
     property var maxNumber
 
     // Score and max score
-    property int scoreCurr: 0
-    property int scoreMax: 0
+    property var scoreCurr: 0
+    property var scoreMax: 0
 
     // Winner
     property int winnerOfTheRound
@@ -47,6 +46,7 @@ Common.LevelBase {
     property string loser: "Lose"
     property string draw: "Draw"
 
+    property int soundChooser: 0
 
     Rectangle {
         anchors.fill: parent
@@ -83,14 +83,7 @@ Common.LevelBase {
 
                     // Check who wins
                     checkWinner()
-                    if(winnerOfTheRound == player) {
-                        outcomeOfTheRound = winner
-                    } else if(winnerOfTheRound == computer) {
-                        outcomeOfTheRound = loser
-                    } else outcomeOfTheRound = draw
-
-                    // Reset timer
-                    roundOverTimer = 3
+                    setTextAndSound()
                 }
             }
             source: "../../assets/RockPaper/img/rock1.png"
@@ -117,13 +110,7 @@ Common.LevelBase {
 
                     // Check who wins
                     checkWinner()
-                    if(winnerOfTheRound == player) {
-                        outcomeOfTheRound = winner
-                    } else if(winnerOfTheRound == computer) {
-                        outcomeOfTheRound = loser
-                    } else outcomeOfTheRound = draw
-
-                    roundOverTimer = 3
+                    setTextAndSound()
                 }
             }
             source: "../../assets/RockPaper/img/paper1.png"
@@ -149,13 +136,7 @@ Common.LevelBase {
 
                     // Check who wins
                     checkWinner()
-                    if(winnerOfTheRound == player) {
-                        outcomeOfTheRound = winner
-                    } else if(winnerOfTheRound == computer) {
-                        outcomeOfTheRound = loser
-                    } else outcomeOfTheRound = draw
-
-                    roundOverTimer = 3
+                    setTextAndSound()
                 }
             }
             source: "../../assets/RockPaper/img/scissor1.png"
@@ -181,13 +162,7 @@ Common.LevelBase {
 
                     // Check who wins
                     checkWinner()
-                    if(winnerOfTheRound == player) {
-                        outcomeOfTheRound = winner
-                    } else if(winnerOfTheRound == computer) {
-                        outcomeOfTheRound = loser
-                    } else outcomeOfTheRound = draw
-
-                    roundOverTimer = 3
+                    setTextAndSound()
                 }
             }
             source: "../../assets/RockPaper/img/lizard1.png"
@@ -213,13 +188,7 @@ Common.LevelBase {
 
                     // Check who wins
                     checkWinner()
-                    if(winnerOfTheRound == player) {
-                        outcomeOfTheRound = winner
-                    } else if(winnerOfTheRound == computer) {
-                        outcomeOfTheRound = loser
-                    } else outcomeOfTheRound = draw
-
-                    roundOverTimer = 3
+                    setTextAndSound()
                 }
             }
             source: "../../assets/RockPaper/img/spock1.png"
@@ -370,8 +339,32 @@ Common.LevelBase {
         source: "../../assets/RockPaper/img/spock.png"
     }
 
-    function cardPicked(inputCard) {
-        playerCard = inputCard
+    // Check winner and set Text and SoundEffectVPlay
+    // Increment killingSpree:
+    function setTextAndSound() {
+        if(winnerOfTheRound == player) {
+            outcomeOfTheRound = winner
+            soundChooser ++
+            roundOverTimer = 3
+            if(soundChooser == 3) {
+                unrealKillingSpree.play()
+            } else if(soundChooser == 5) {
+                unrealRampage.play()
+            } else if(soundChooser == 7) {
+                unrealGodlike.play()
+            } else if(soundChooser%4 == 0) {
+                unrealMonsterKill.play()
+            } else clappingSound.play()
+
+        } else if(winnerOfTheRound == computer) {
+            outcomeOfTheRound = loser
+            youSuckSound.play()
+            soundChooser = 0
+            roundOverTimer = 3
+        } else {
+            outcomeOfTheRound = draw
+            roundOverTimer = 3
+        }
     }
 
     // Set all card visibility to false
@@ -473,6 +466,7 @@ Common.LevelBase {
     }
 
     // Check whos winner for this round
+    // Point is to lose - so its vice versa
     function checkWinner() {
         if(playerCard === cards.Rock) {
             /* PLAYER Wins */
@@ -497,6 +491,7 @@ Common.LevelBase {
 
             /* TIE */
             else {
+                scoreCurr += 0.5
                 winnerOfTheRound = none
             }
         }
@@ -524,6 +519,7 @@ Common.LevelBase {
 
             /* TIE */
             else {
+                scoreCurr += 0.5
                 winnerOfTheRound = none
             }
         }
@@ -551,6 +547,7 @@ Common.LevelBase {
 
             /* TIE */
             else {
+                scoreCurr += 0.5
                 winnerOfTheRound = none
             }
         }
@@ -578,6 +575,7 @@ Common.LevelBase {
 
             /* TIE */
             else {
+                scoreCurr += 0.5
                 winnerOfTheRound = none
             }
         }
@@ -605,6 +603,7 @@ Common.LevelBase {
 
             /* TIE */
             else {
+                scoreCurr += 0.5
                 winnerOfTheRound = none
             }
         }
@@ -630,7 +629,6 @@ Common.LevelBase {
         color: "white"
         font.pixelSize: roundOverTimer > 0 ? 50 : 18
         text: roundOverTimer > 0 ? roundOverTimer : ""
-
     }
 
     // Display Win, Lose or Draw
@@ -642,4 +640,35 @@ Common.LevelBase {
         text: roundOverTimer > 0 ? outcomeOfTheRound : ""
     }
 
+    // ClappingSound
+    SoundEffectVPlay {
+        id: clappingSound
+        source: "../../assets/RockPaper/audio/clap.wav"
+    }
+
+    // YouSuckSound
+    SoundEffectVPlay {
+        id: youSuckSound
+        source: "../../assets/RockPaper/audio/you-suck.wav"
+    }
+
+    SoundEffectVPlay {
+        id: unrealKillingSpree
+        source: "../../assets/RockPaper/audio/unrealKillingSpree.wav"
+    }
+
+    SoundEffectVPlay {
+        id: unrealGodlike
+        source: "../../assets/RockPaper/audio/unrealGodlike.wav"
+    }
+
+    SoundEffectVPlay {
+        id: unrealMonsterKill
+        source: "../../assets/RockPaper/audio/unrealMonsterKill.wav"
+    }
+
+    SoundEffectVPlay {
+        id: unrealRampage
+        source: "../../assets/RockPaper/audio/unrealRampage"
+    }
 }
