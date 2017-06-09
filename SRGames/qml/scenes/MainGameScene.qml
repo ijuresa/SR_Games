@@ -10,6 +10,7 @@ SceneBase {
     property variant activeGame
     property int score: 0
     property int countdown: 0
+    property bool gameRunning
 
     function setGame(fileName) {
         activeGameFileName = fileName
@@ -24,7 +25,7 @@ SceneBase {
             item.height = mainGameScene.height
 
             activeGame = item
-
+            gameRunning = true
             score = 0
             countdown = 3
         }
@@ -37,4 +38,10 @@ SceneBase {
             countdown--
         }
     }
+
+    onBackButtonPressed:{
+        activeGameFileName = ""
+        activeGame = null
+    }
+
 }

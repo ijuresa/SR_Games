@@ -14,7 +14,8 @@ Common.LevelBase {
     // score
     property int score: 0
 
-
+    property int forceX: 0
+    property int forceY: 0
 
     //Pozadina
     BackgroundImage {
@@ -45,7 +46,7 @@ Common.LevelBase {
     }
 
     //Pomicanje kutije mišem
-    Component {
+    /*Component {
         id: mouseJoint
         MouseJoint{
             maxForce: 30000
@@ -88,7 +89,7 @@ Common.LevelBase {
                        mouseJointWhileDragging.destroy()
                }
            }
-}
+}*/
 
     //TODO Maknuti state change kod poda////////////////////////////
 
@@ -117,10 +118,6 @@ Common.LevelBase {
                 collisionSound.play();
                 collisionParticleEffect.start();
                 score++;
-                //DEBUG
-                heliClimb.state = "rotated"
-                timer.start()
-
             }
         }
     }
@@ -196,18 +193,22 @@ Common.LevelBase {
         id: heli1
         entityId: "heli1"
         entityType: "heli"
-        x: parent.width / 2
-        y: parent.height / 2
+        x: 300
+        y: 300
+        rotation: 0
+        Behavior on rotation {
+            NumberAnimation {property: "rotation"; duration: 200; easing.type: Easing.InOutCubic}
+        }
+
         //rotation: 90
+
+        //NumberAnimation on x { easing.period: 0.37; easing.amplitude: 1; easing.type: Easing.InOutBack; to: newX; duration: 1000 }
         //Behavior on x { SmoothedAnimation {velocity: 200}}
         //Behavior on y { SmoothedAnimation {velocity: 200}}
 
         //Reset pozicije helikoptera
-        function heliReset()
-        {
-            x = parent.width /2
-            y = parent.top
-        }
+
+
 
         AnimatedImage {
             id: heliImage
@@ -220,8 +221,9 @@ Common.LevelBase {
             id: boxCollider
             width: 128
             height: 64
+            bodyType: Body.Dynamic
             anchors.centerIn: parent
-
+            force:Qt.point(forceX,forceY)
             fixture.onBeginContact:
             {
                 heliSound.play()
@@ -279,7 +281,6 @@ Common.LevelBase {
                 PropertyChanges { target: heli1; rotation: 180 }
                 PropertyChanges { target: world;
                     gravity.y: -(world.gravity.y)
-
                 }
 
                 },
@@ -292,26 +293,41 @@ Common.LevelBase {
             State {
                 name: "whipped"
                 PropertyChanges { target: heli1;
-                    rotation: 0; y: heli1.y + 30; }
+                    rotation: 0;
+                }
+                PropertyChanges {
+                    target: heliClimb; forceY: -500
+
+                }
             },
             State {
                 name: "twistedR"
                 PropertyChanges { target: heli1;
-                    rotation: 30;
-                    x: heli1.x +20;
+                    rotation: 50;
+                 }
+                PropertyChanges {
+                    target: heliClimb; forceX: -50
+
                 }
+
             },
             State {
                 name: "twistedL"
                 PropertyChanges { target: heli1;
-                    rotation: -30;
-                    x: heli1.x -20;
+                    rotation: -50;
+                }
+                PropertyChanges {
+                    target: heliClimb; forceX: 50
+
                 }
             },
             State {
                 name :"slammed"
                 PropertyChanges { target: heli1; rotation: 0;
-                    y: heli1.y + 30
+                }
+                PropertyChanges {
+                    target: heliClimb; forceY: -500
+
                 }
             }
         ]
@@ -398,7 +414,8 @@ Common.LevelBase {
             repeat: true
             interval: 300
             onTriggered: {
-                if (heliSound.playing == false) heliSound.play()
+                heliSound.play();
+                console.warn(heli1.x+","+heli1.y);
             }
         }
 }
