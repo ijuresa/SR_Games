@@ -52,7 +52,16 @@ SceneBase {
             onClicked: {
                 gamePressed("SpockLizard.qml")
             }
-            // TODO: Change with Spock button
+            source: "../../assets/RockPaper/img/spockPlayButton.png"
+        }
+
+        SelectGameSceneButton {
+            width: newWidth
+            height: newHeight
+            onClicked: {
+                gamePressed("PernarEscape.qml")
+            }
+            // TODO: Change with Pernar button
             source: "../../assets/RockPaper/img/spockPlayButton.png"
         }
     }

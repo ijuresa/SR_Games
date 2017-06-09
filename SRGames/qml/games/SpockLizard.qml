@@ -60,6 +60,8 @@ Common.LevelBase {
     property int scoreAchievement
     property int overallScore: 0
 
+    property string achiText
+
     Row {
         spacing: 10
         height: rockImage.newSourceSizeHeight
@@ -294,7 +296,6 @@ Common.LevelBase {
         source: "../../assets/RockPaper/img/spock.png"
     }
 
-
     /********* Player Images *********/
     // Rock
     Image {
@@ -494,10 +495,10 @@ Common.LevelBase {
             scoreMax = scoreCurr
         }
         overallScore += scoreCurr
-//        gameNetwork.incrementAchievement("scoreOverall50")
-//        gameNetwork.incrementAchievement("scoreOverall100")
-//        gameNetwork.incrementAchievement("scoreOverall500")
-//        gameNetwork.incrementAchievement("scoreOverall1000")
+        gameNetwork.incrementAchievement("scoreOverall50", overallScore, true)
+        gameNetwork.incrementAchievement("scoreOverall100", overallScore, true)
+        gameNetwork.incrementAchievement("scoreOverall500", overallScore, true)
+        gameNetwork.incrementAchievement("scoreOverall1000", overallScore, true)
         // OverallScore achievement
         if(overallScore >= 50) {
             gameNetwork.unlockAchievement("scoreOverall50", true)
@@ -510,6 +511,10 @@ Common.LevelBase {
         }
 
         scoreCurr = 0;
+    }
+
+    onAchievementUnlock: {
+        achiText = "Achievement Unlocked"
     }
 
     // Check whos winner for this round
@@ -685,6 +690,15 @@ Common.LevelBase {
         color: "white"
         font.pixelSize: roundOverTimer > 0 ? 50 : 18
         text: roundOverTimer > 0 ? roundOverTimer : ""
+    }
+
+    // Text Display achivement
+    Text {
+        anchors.centerIn: parent
+        anchors.verticalCenterOffset: 160
+        color: "white"
+        font.pixelSize: 70
+        text: roundOverTimer > 0 ? achiText : ""
     }
 
     // Display Win, Lose or Draw

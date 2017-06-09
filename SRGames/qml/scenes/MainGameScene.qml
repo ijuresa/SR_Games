@@ -12,6 +12,8 @@ SceneBase {
     property int countdown: 0
     property bool gameRunning
 
+    width: gameWindowAnchorItem.width
+    height: gameWindowAnchorItem.height
 
     function setGame(fileName) {
         activeGameFileName = fileName
@@ -33,6 +35,7 @@ SceneBase {
         onLoaded: {
             item.width = mainGameScene.width
             item.height = mainGameScene.height
+
 
             activeGame = item
             gameRunning = true

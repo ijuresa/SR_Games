@@ -14,28 +14,12 @@ GameWindow {
         id: entityManager
     }
 
-//    ShowAchivements {
-//        id: showAchivementsScene
-
-//        VPlayGameNetwork {
-//            id: gameNetwork
-//            gameNetworkView: myGameNetworkView
-//        }
-
-//        onAchivementsPressed: {
-//            gameNetwork.showAchievements()
-//            window.state = "achivements"
-//        }
-
-//        VPlayGameNetworkView {
-//            id: myGameNetworkView
-//            gameNetworkItem: gameNetwork
-//        }
-
-//    }
-
     SpockLizard {
         id: spockLizardGame
+    }
+
+    PernarEscape {
+        id: pernarEscape
     }
 
     ShowAchivements {
@@ -126,7 +110,7 @@ GameWindow {
             Achievement {
                 key: "scoreOverall50"
                 name: "Noob"
-                iconSource: "../../assets/RockPaper/img/50scoreoverall.png"
+                iconSource: "../../assets/RockPaper/img/baseCoins50.png"
                 target: 50
                 points: 5
                 description: "Get 50 score"
@@ -136,7 +120,7 @@ GameWindow {
             Achievement {
                 key: "scoreOverall100"
                 name: "Persistent"
-                iconSource: "../../assets/RockPaper/img/100scoreoverall.png"
+                iconSource: "../../assets/RockPaper/img/baseCoins100.png"
                 target: 100
                 points: 10
                 description: "Get 100 score"
@@ -146,7 +130,7 @@ GameWindow {
             Achievement {
                 key: "scoreOverall500"
                 name: "Pro"
-                iconSource: "../../assets/RockPaper/img/500scoreoverall.png"
+                iconSource: "../../assets/RockPaper/img/baseCoins500.png"
                 target: 500
                 points: 20
                 description: "Get 500 score"
@@ -156,7 +140,7 @@ GameWindow {
             Achievement {
                 key: "scoreOverall1000"
                 name: "No Lifer"
-                iconSource: "../../assets/RockPaper/img/1000scoreoverall.png"
+                iconSource: "../../assets/RockPaper/img/baseCoins1000.png"
                 target: 1000
                 points: 40
                 description: "Get 1000 score"
