@@ -9,13 +9,36 @@ Common.LevelBase {
     id: heliClimb
     levelName: "HelicopterClimb"
 
+    property bool gameRunning: true
+    property bool debugMode: false
     // default state for sensor
     state: "default"
     // score
     property int score: 0
 
+    property int playTime: 60
+
     property int forceX: 0
     property int forceY: 0
+
+    //Resetira igru
+    function resetGame(){
+        gameRunning = true;
+        score = 0;
+        playTime = 60;
+        playTimer.running = true;
+        playTimer.start();
+        world.running = true;
+        sensorGesture.enabled = true;
+    }
+
+    function stopGame(){
+        gameRunning = false;
+        playTimer.stop();
+        playTimer.running = false;
+        world.running = false;
+        sensorGesture.enabled = false;
+    }
 
     //Pozadina
     BackgroundImage {
@@ -193,11 +216,11 @@ Common.LevelBase {
         id: heli1
         entityId: "heli1"
         entityType: "heli"
-        x: 300
-        y: 300
+        x: parent.width/2
+        y: parent.height/2
         rotation: 0
         Behavior on rotation {
-            NumberAnimation {property: "rotation"; duration: 200; easing.type: Easing.InOutCubic}
+            NumberAnimation {property: "rotation"; duration: 500; easing.type: Easing.InOutCubic}
         }
 
         //rotation: 90
@@ -253,13 +276,26 @@ Common.LevelBase {
     Text {
         id: textScore
         x: parent.width/2
-        anchors.top: parent.top
-        anchors.topMargin: 10
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 40
         color: "white"
-        font.pixelSize: 30
+        font.pixelSize: 40
         text: score
     }
 
+    //Time left label
+    Text {
+        id: timeLabel
+        text: "time: "+playTime
+        anchors.top: parent.top
+        anchors.topMargin: 10
+        anchors.horizontalCenter: parent
+
+        color: playTime > 10 ? "white" : "red"
+        font.pixelSize: playTime > 10 ? 30 : 40
+    }
+
+    //Sensor movement label, only shown in debug mode
     Text {
         id: sensorLabel
         anchors {
@@ -271,8 +307,36 @@ Common.LevelBase {
         color: "white"
         font.pixelSize: 20
         text: "Sensor gesture:"
+        opacity: debugMode ? 1 : 0
     }
 
+    //Menu nakon završetka igre
+    Column{
+        anchors.centerIn: parent
+        spacing: 10
+        enabled: gameRunning ? false : true
+        opacity: gameRunning ? 0 : 1
+
+        //Button za ponovno pokretanje igre
+        Common.MenuButton{
+            text: "Play Again"
+            // anchor the button to the gameWindowAnchorItem to be on the edge of the screen on any device
+
+            onClicked: {
+                resetGame()
+            }
+
+        }
+
+        //Button za ponovno pokretanje igre
+        Common.MenuButton{
+            text: "No it's retarded"
+            // anchor the button to the gameWindowAnchorItem to be on the edge of the screen on any device
+
+            onClicked: backButtonPressed()
+
+        }
+    }
 
     //States for sensor movement
     states: [
@@ -326,7 +390,7 @@ Common.LevelBase {
                 PropertyChanges { target: heli1; rotation: 0;
                 }
                 PropertyChanges {
-                    target: heliClimb; forceY: 500
+                    target: heliClimb; forceY: 700
 
                 }
             }
@@ -412,10 +476,25 @@ Common.LevelBase {
             id: syncTimer
             running: true
             repeat: true
-            interval: 300
+            interval: 1000
             onTriggered: {
                 heliSound.play();
                 console.warn(heli1.x+","+heli1.y);
+            }
+        }
+
+        Timer {
+            id: playTimer
+            running: true
+            repeat: true
+            interval: 1000
+            onTriggered: {
+                if(playTime>0){
+                    playTime--
+                }
+                else{
+                    stopGame();
+                }
             }
         }
 }
