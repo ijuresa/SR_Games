@@ -80,6 +80,8 @@ SceneBase {
                 score++
             }
         }
+
+
     }
 
     // name of the current level

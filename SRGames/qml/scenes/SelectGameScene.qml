@@ -2,12 +2,17 @@ import VPlay 2.0
 import QtQuick 2.0
 
 import "../common"
+import "../scenes"
 
 SceneBase {
     id: selectGameScene
 
     // Indicate which game is pressed
     signal gamePressed(string gamePressed)
+
+    function test22() {
+
+    }
 
     // background
     Rectangle {

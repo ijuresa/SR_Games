@@ -23,6 +23,7 @@ SceneBase {
         anchors.top: selectLevelScene.gameWindowAnchorItem.top
         anchors.topMargin: 10
         onClicked: backButtonPressed()
+
     }
 
     // levels to be selected

@@ -12,4 +12,5 @@ Scene {
     Behavior on opacity {
         NumberAnimation {property: "opacity"; easing.type: Easing.InOutQuad}
     }
+
 }

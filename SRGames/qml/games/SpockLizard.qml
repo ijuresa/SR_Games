@@ -6,6 +6,7 @@ import "../scenes"
 
 Common.LevelBase {
     levelName: "SpockLizard"
+    id: spockLizardGame
 
     property var cards: { "Rock": 1, "Paper": 2, "Scissors": 3,
                             "Lizard": 4, "Spock": 5 }
@@ -53,10 +54,11 @@ Common.LevelBase {
     // Game mode
     property int gameModeEasy: 5
 
-    Rectangle {
-        anchors.fill: parent
-        color: "#47688e"
-    }
+    // Achievements
+    property int loseAchievement
+    property int drawAchievement
+    property int scoreAchievement
+    property int overallScore: 0
 
     Row {
         spacing: 10
@@ -344,19 +346,24 @@ Common.LevelBase {
         source: "../../assets/RockPaper/img/spock.png"
     }
 
+    function checkAchivement(id) {
+        gameNetwork.unlockAchievement()
+    }
+
     // Check winner and set Text and SoundEffectVPlay
     // Increment killingSpree:
     function setTextAndSound() {
         if(winnerOfTheRound == player) {
             outcomeOfTheRound = winner
             soundChooser ++
-            roundOverTimer = 3
             if(soundChooser == 3) {
+                gameNetwork.unlockAchievement("SpockKillingSpree", true)
                 unrealKillingSpree.play()
-                game
             } else if(soundChooser == 5) {
+                gameNetwork.unlockAchievement("SpockRampage", true)
                 unrealRampage.play()
             } else if(soundChooser == 9) {
+                gameNetwork.unlockAchievement("SpockGodlike", true)
                 unrealGodlike.play()
             } else if(soundChooser%4 == 0) {
                 unrealMonsterKill.play()
@@ -366,11 +373,10 @@ Common.LevelBase {
             outcomeOfTheRound = loser
             youSuckSound.play()
             soundChooser = 0
-            roundOverTimer = 3
         } else {
             outcomeOfTheRound = draw
-            roundOverTimer = 3
         }
+        roundOverTimer = 3
     }
 
     // Set all card visibility to false
@@ -487,6 +493,22 @@ Common.LevelBase {
         if(scoreCurr > scoreMax) {
             scoreMax = scoreCurr
         }
+        overallScore += scoreCurr
+//        gameNetwork.incrementAchievement("scoreOverall50")
+//        gameNetwork.incrementAchievement("scoreOverall100")
+//        gameNetwork.incrementAchievement("scoreOverall500")
+//        gameNetwork.incrementAchievement("scoreOverall1000")
+        // OverallScore achievement
+        if(overallScore >= 50) {
+            gameNetwork.unlockAchievement("scoreOverall50", true)
+        } else if(overallScore >= 100) {
+            gameNetwork.unlockAchievement("scoreOverall100", true)
+        } else if(overallScore >= 500) {
+            gameNetwork.unlockAchievement("scoreOverall500", true)
+        } else if(overallScore >= 1000) {
+            gameNetwork.unlockAchievement("scoreOverall1000", true)
+        }
+
         scoreCurr = 0;
     }
 
@@ -632,6 +654,15 @@ Common.LevelBase {
                 winnerOfTheRound = none
             }
         }
+
+        // Current Score achievement
+        if(scoreCurr >= 4) {
+            gameNetwork.unlockAchievement("score4", true)
+        } else if(scoreCurr >= 6) {
+            gameNetwork.unlockAchievement("score6", true)
+        } else if(scoreCurr >= 10) {
+            gameNetwork.unlockAchievement("score10", true)
+        }
     }
 
     // Timer for countdown between rounds
@@ -645,6 +676,7 @@ Common.LevelBase {
             }
         }
     }
+
 
     // Text to display timer
     Text {

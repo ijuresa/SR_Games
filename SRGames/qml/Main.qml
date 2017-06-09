@@ -2,6 +2,7 @@ import VPlay 2.0
 import QtQuick 2.0
 
 import "scenes"
+import "games"
 
 GameWindow {
     id: window
@@ -13,17 +14,155 @@ GameWindow {
         id: entityManager
     }
 
+//    ShowAchivements {
+//        id: showAchivementsScene
+
+//        VPlayGameNetwork {
+//            id: gameNetwork
+//            gameNetworkView: myGameNetworkView
+//        }
+
+//        onAchivementsPressed: {
+//            gameNetwork.showAchievements()
+//            window.state = "achivements"
+//        }
+
+//        VPlayGameNetworkView {
+//            id: myGameNetworkView
+//            gameNetworkItem: gameNetwork
+//        }
+
+//    }
+
+    SpockLizard {
+        id: spockLizardGame
+    }
+
     ShowAchivements {
-        id: showAchivementsScene
+    id: showAchivements
+}
 
-        VPlayGameNetwork {
-            id: gameNetwork
+    VPlayGameNetwork {
+        id: gameNetwork
+        gameId: 369
+        secret: "12345678987654321"
+        gameNetworkView: showAchievementsScene.gameNetworkView
+
+        Component.onCompleted: {
+            // Put here achievements
         }
 
-        onAchivementsPressed: {
-            gameNetwork.showAchievements()
-            window.state = "achivements"
-        }
+        achievements: [
+            Achievement {
+                key: "SpockKillingSpree"
+                name: "Killing Spree"
+                iconSource: "../../assets/RockPaper/img/spockKillingSpree.png"
+                target: 3
+                points: 5
+                description: "Win 3 in a row"
+                descriptionAfterUnlocking: "Won 3 in a row"
+            },
+
+            Achievement {
+                key: "SpockRampage"
+                name: "Rampage"
+                iconSource: "../../assets/RockPaper/img/spockRampage.png"
+                target: 5
+                points: 10
+                description: "Win 5 in a row"
+                descriptionAfterUnlocking: "Won 5 in a row"
+            },
+
+            Achievement {
+                key: "SpockGodlike"
+                name: "Godlike"
+                iconSource: "../../assets/RockPaper/img/spockGodlike.png"
+                target: 9
+                points: 20
+                description: "Win 7 in a row"
+                descriptionAfterUnlocking: "Won 7 in a row"
+            },
+
+            Achievement {
+                key: "SpockDraw"
+                name: "Draw Sensei"
+                iconSource: "../../assets/RockPaper/img/spockDraw.png"
+                target: 3
+                points: 10
+                description: "Draw 3 in a row"
+                descriptionAfterUnlocking: "Draw 3 in a row"
+            },
+
+            Achievement {
+                key: "score4"
+                name: "Peasant"
+                iconSource: "../../assets/RockPaper/img/score4.png"
+                target: 4
+                points: 5
+                description: "Get 4 score without losing"
+                descriptionAfterUnlocking: "Fourth"
+            },
+
+            Achievement {
+                key: "score6"
+                name: "Lord"
+                iconSource: "../../assets/RockPaper/img/score6.png"
+                target: 6
+                points: 5
+                description: "Get 6 score without losing"
+                descriptionAfterUnlocking: "Sixth"
+            },
+
+            Achievement {
+                key: "score10"
+                name: "Overlord"
+                iconSource: "../../assets/RockPaper/img/score10.png"
+                target: 10
+                points: 20
+                description: "Get 10 score without losing"
+                descriptionAfterUnlocking: "Tenth"
+            },
+
+            Achievement {
+                key: "scoreOverall50"
+                name: "Noob"
+                iconSource: "../../assets/RockPaper/img/50scoreoverall.png"
+                target: 50
+                points: 5
+                description: "Get 50 score"
+                descriptionAfterUnlocking: "Scored 50"
+            },
+
+            Achievement {
+                key: "scoreOverall100"
+                name: "Persistent"
+                iconSource: "../../assets/RockPaper/img/100scoreoverall.png"
+                target: 100
+                points: 10
+                description: "Get 100 score"
+                descriptionAfterUnlocking: "Scored 100"
+            },
+
+            Achievement {
+                key: "scoreOverall500"
+                name: "Pro"
+                iconSource: "../../assets/RockPaper/img/500scoreoverall.png"
+                target: 500
+                points: 20
+                description: "Get 500 score"
+                descriptionAfterUnlocking: "Scored 500"
+            },
+
+            Achievement {
+                key: "scoreOverall1000"
+                name: "No Lifer"
+                iconSource: "../../assets/RockPaper/img/1000scoreoverall.png"
+                target: 1000
+                points: 40
+                description: "Get 1000 score"
+                descriptionAfterUnlocking: "Scored 1000"
+            }
+        ]
     }
 
     // MENU scene
@@ -34,7 +173,7 @@ GameWindow {
         // Changes scenes according to button click
         onSelectGamePressed: window.state = "selectGame"
         onSelectLevelPressed: window.state = "selectLevel"
-        onShowAchivementsPressed: window.state = "achivements"
+        onShowAchivementsPressed: window.state = "achievements"
 
         // When user wants to exit from MENU scene
         onBackButtonPressed: {
@@ -67,6 +206,7 @@ GameWindow {
         id: selectGameScene
         onGamePressed: {
             mainGameScene.setGame(gamePressed)
+            mainGameScene.parseAchievements()
             window.state = "gameOn"
         }
         onBackButtonPressed: window.state = "menu"
@@ -115,9 +255,9 @@ GameWindow {
             PropertyChanges { target: window; activeScene: mainGameScene }
         },
         State {
-            name: "achivements"
-            PropertyChanges { target: showAchivementsScene; opacity: 1 }
-            PropertyChanges { target: window; activeScene: showAchivementsScene }
+            name: "achievements"
+            PropertyChanges { target: showAchivements; opacity: 1 }
+            PropertyChanges { target: window; activeScene: showAchivements }
         }
 
     ]
