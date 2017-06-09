@@ -12,8 +12,18 @@ SceneBase {
     property int countdown: 0
     property bool gameRunning
 
+
     function setGame(fileName) {
         activeGameFileName = fileName
+    }
+
+    function parseAchievements() {
+
+    }
+    // background
+    Rectangle {
+        anchors.fill: parent.gameWindowAnchorItem
+        color: "#47688e"
     }
 
     Loader {
@@ -29,6 +39,14 @@ SceneBase {
             score = 0
             countdown = 3
         }
+    }
+
+    Connections {
+        target: activeGame
+        onAchievementUnlock: {
+
+        }
+
     }
 
     Timer {
