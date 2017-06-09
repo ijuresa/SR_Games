@@ -296,17 +296,17 @@ Common.LevelBase {
                     rotation: 0;
                 }
                 PropertyChanges {
-                    target: heliClimb; forceY: -500
+                    target: heliClimb; forceY: 500
 
                 }
             },
             State {
                 name: "twistedR"
                 PropertyChanges { target: heli1;
-                    rotation: 50;
+                    rotation: -50;
                  }
                 PropertyChanges {
-                    target: heliClimb; forceX: -50
+                    target: heliClimb; forceX: 200
 
                 }
 
@@ -314,10 +314,10 @@ Common.LevelBase {
             State {
                 name: "twistedL"
                 PropertyChanges { target: heli1;
-                    rotation: -50;
+                    rotation: 50;
                 }
                 PropertyChanges {
-                    target: heliClimb; forceX: 50
+                    target: heliClimb; forceX: -200
 
                 }
             },
@@ -326,7 +326,7 @@ Common.LevelBase {
                 PropertyChanges { target: heli1; rotation: 0;
                 }
                 PropertyChanges {
-                    target: heliClimb; forceY: -500
+                    target: heliClimb; forceY: 500
 
                 }
             }
@@ -393,7 +393,7 @@ Common.LevelBase {
             id: timer
             running: false
             repeat: false
-            interval: 300
+            interval: 700
             onTriggered: {
                 console.debug("available gestures"+sensorGesture.availableGestures)
                 console.debug("invalid gestures"+sensorGesture.invalidGestures)
