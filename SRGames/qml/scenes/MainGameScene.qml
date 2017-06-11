@@ -40,6 +40,7 @@ SceneBase {
         }
     }
 
+    ///Spajano
     Connections {
         // only connect if a game is loaded, to prevent errors
         target: activeGame !== undefined ? activeGame : null
@@ -47,7 +48,16 @@ SceneBase {
         onHighscoreAchieved: {
             gameNetwork.reportScore(highscore);
             console.error("triggered Highscore with score:" + highscore)
-            gameNetwork.unlockAchievement("heliScore20Fire", true)
+            }
+        onAchievementUnlocked: {
+            if(amount>0){
+                gameNetwork.incrementAchievement(key, amount, true)
+            }
+            else{
+                gameNetwork.unlockAchievement(key, true)
+            }
+
+
         }
 
 

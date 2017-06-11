@@ -22,8 +22,8 @@ GameWindow {
 
     VPlayGameNetwork {
         id: gameNetwork
-        gameId: 369
-        secret: "12345678987654321"
+        gameId: 370
+        secret: "jucapuca"
         gameNetworkView: showAchivements.gameNetworkView
 
         Component.onCompleted: {
@@ -162,10 +162,10 @@ GameWindow {
             },
 
             Achievement {
-                key: "heliScore20Fire"
+                key: "heliFire"
                 name: "Firebender"
                 iconSource: "../../assets/particleFire_32.png"
-                target: 30
+                target: 1
                 points: 5
                 description: "Set helicopter afire!"
                 descriptionAfterUnlocking: "Hot, hot, hot!"

@@ -9,9 +9,10 @@ Item {
     // this is emitted whenever the rectangle has been tapped successfully, the GameScene will listen to this signal and increase the score
     signal rectanglePressed
     property int score
+    property bool name: value
 
     signal highscoreAchieved(int highscore)
-    signal achievementUnlock(int id)
-    // Signals
+    signal achievementUnlocked(string key, int amount)
+
 
 }
