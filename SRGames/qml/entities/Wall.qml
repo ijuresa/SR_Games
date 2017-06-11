@@ -7,10 +7,9 @@ EntityBase {
     width: 1
     height: 1
 
-    // only collider since we want the wall to be invisible
     BoxCollider {
       anchors.fill: parent
-      bodyType: Body.Static // the body shouldn't move
+      bodyType: Body.Static
     }
 
 }

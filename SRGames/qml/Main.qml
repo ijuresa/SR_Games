@@ -18,13 +18,13 @@ GameWindow {
         id: spockLizardGame
     }
 
-    PernarEscape {
-        id: pernarEscape
-    }
+//    PernarEscape {
+//        id: pernarEscape
+//    }
 
     ShowAchivements {
-    id: showAchivements
-}
+        id: showAchivements
+    }
 
     VPlayGameNetwork {
         id: gameNetwork

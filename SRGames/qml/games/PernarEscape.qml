@@ -16,6 +16,7 @@ Common.LevelBase {
 
 
     PhysicsWorld {
+        id: physicsId
         gravity.y: -1
         debugDrawVisible: false
     }
@@ -52,12 +53,20 @@ Common.LevelBase {
         width: parent.width
         anchors.bottom: parent.top
         anchors.left: parent.left
+
+        BoxCollider {
+            fixture.onBeginContact: {
+                gameLost()
+            }
+        }
     }
 
     // Start game ( Timer )
     function startGame() {
+
+        gameRunning = true
         backgroundMusic.play()
-        spawnCharacters.start()
+        entityTimer.start()
     }
 
     function turnBackgroundMusicOff() {
@@ -66,35 +75,19 @@ Common.LevelBase {
 
     // Reset Game ( Timer )
     function resetGame() {
-
+        // Reset Pernars
+//        pervanCharacter.removeAllEntities()
+        startGame()
     }
 
-    EntityBase {
-        entityType: "pervan"
-        x: parent.width / 2
-        y: parent.height / 2
-
-        BoxCollider {
-            width: 100
-            height: 121
-            bodyType: Body.Dynamic
-            anchors.centerIn: parent
-        }
-
-        MultiResolutionImage {
-            id: pernarSprite
-            source: "../../assets/PernarEscape/img/pernarFront.png"
-            anchors.centerIn: parent
-        }
-    }
-
-    function generateCharacters() {
-
+    function gameLost() {
+        gameRunning = false
+        entityTimer.stop()
+//        physicsId.running = false
     }
 
     Character {
-        x: pernarEscape.width / 2
-        y: 50
+        id: pervanCharacter
     }
 
     Timer {
@@ -105,9 +98,8 @@ Common.LevelBase {
 
         onTriggered: {
             var newEntityProperties = {
-                x: Math.random() * (pernarEscape.width - 2 * 50) + 50,
-                y: 50,
-                rotation: Math.random() * 360
+                x: Math.random() * (parent.width - 50) + 50,
+                y: parent.height + 30,
             }
 
             entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl(
@@ -121,6 +113,29 @@ Common.LevelBase {
         entityContainer: pernarEscape
     }
 
+    //Menu nakon završetka igre
+    Column{
+        anchors.centerIn: parent
+        spacing: 10
+        enabled: gameRunning ? false : true
+        opacity: gameRunning ? 0 : 1
+
+        //Button za ponovno pokretanje igre
+        Common.MenuButton{
+            text: "Play Again"
+
+            onClicked: {
+                resetGame()
+            }
+        }
+
+        //Button za ponovno pokretanje igre
+        Common.MenuButton{
+            text: ":("
+
+            onClicked: backButtonPressed()
+        }
+    }
 }
 
 

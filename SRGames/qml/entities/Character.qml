@@ -22,11 +22,8 @@ EntityBase {
 
     MouseArea {
         anchors.fill: sprite
-
         onPressed: {
-            // TODO: Pressed event
+            removeEntity()
         }
     }
-
-
 }
