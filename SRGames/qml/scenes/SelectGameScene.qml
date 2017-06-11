@@ -51,6 +51,7 @@ SceneBase {
             height: newHeight
             onClicked: {
                 gamePressed("SpockLizard.qml")
+                spockLizardGame.turnBackgroundMusicOn()
             }
             source: "../../assets/RockPaper/img/spockPlayButton.png"
         }
@@ -60,6 +61,7 @@ SceneBase {
             height: newHeight
             onClicked: {
                 gamePressed("PernarEscape.qml")
+                pernarEscape.startGame()
             }
             // TODO: Change with Pernar button
             source: "../../assets/RockPaper/img/spockPlayButton.png"

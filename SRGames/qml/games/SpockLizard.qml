@@ -682,7 +682,6 @@ Common.LevelBase {
         }
     }
 
-
     // Text to display timer
     Text {
         anchors.centerIn: parent
@@ -740,5 +739,20 @@ Common.LevelBase {
     SoundEffectVPlay {
         id: unrealRampage
         source: "../../assets/RockPaper/audio/unrealRampage"
+    }
+
+    // Background Music
+    BackgroundMusic {
+        id: spockLizardMusic
+        source: "../../assets/RockPaper/audio/Star_Trek_Theme.wav"
+        autoPlay: false
+    }
+
+    function turnBackgroundMusicOn() {
+        spockLizardMusic.play()
+    }
+
+    function turnBackgroundMusicOff() {
+        spockLizardMusic.stop()
     }
 }

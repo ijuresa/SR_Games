@@ -3,8 +3,8 @@ import QtQuick 2.0
 Rectangle {
     id: button
     // this will be the default size, it is same size as the contained text + some padding
-    width: buttonText.width+ paddingHorizontal*2
-    height: buttonText.height+ paddingVertical*2
+    implicitWidth: 100
+    implicitHeight: 25
 
     color: "#e9e9e9"
     // round edges

@@ -7,13 +7,16 @@ import "../common" as Common
 
 Common.LevelBase {
     levelName: "PernarEscape"
+
     id: pernarEscape
 
     property int numberOfCharacters: 0
 
+    property bool gameRunning: false
+
 
     PhysicsWorld {
-        gravity.y: 3
+        gravity.y: -1
         debugDrawVisible: false
     }
 
@@ -22,7 +25,9 @@ Common.LevelBase {
     }
 
     BackgroundMusic {
-        source: "../../assets/PernarEscape/audio/pernarQuak"
+        id: backgroundMusic
+        autoPlay: false
+        source: "../../assets/PernarEscape/audio/quakBackground.wav"
     }
 
     // Pernar pop
@@ -58,7 +63,12 @@ Common.LevelBase {
 
     // Start game ( Timer )
     function startGame() {
+        backgroundMusic.play()
         spawnCharacters.start()
+    }
+
+    function turnBackgroundMusicOff() {
+        backgroundMusic.stop()
     }
 
     // Reset Game ( Timer )
@@ -66,19 +76,53 @@ Common.LevelBase {
 
     }
 
-    Timer {
-        id: spawnCharacters
-        interval: 20
-        repeat: true
+    EntityBase {
+        entityType: "pervan"
+        x: parent.width / 2
+        y: parent.height / 2
 
-        onTriggered: {
-            entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Character"))
-            numberOfCharacters ++
-            if(numberOfCharacters == 20) {
+        BoxCollider {
+            width: 100
+            height: 121
+            bodyType: Body.Dynamic
+            anchors.centerIn: parent
+        }
 
-            }
+        MultiResolutionImage {
+            id: pernarSprite
+            source: "../../assets/PernarEscape/img/pernarFront.png"
+            anchors.centerIn: parent
         }
     }
+
+//    Timer {
+//        id: spawnCharacters
+//        interval: 20
+//        repeat: true
+
+//        onTriggered: {
+//            entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Character.qml"))
+//            numberOfCharacters ++
+//            if(numberOfCharacters == 50) {
+//                running = false
+//                gameRunning = true
+//            }
+//        }
+//    }
+
+//    Text {
+//        id: infoText
+//        anchors.bottom: parent.bottom
+//        height: 40
+//        text: "Char "+ numberOfCharacters
+//    }
+
+    // Create entities at runtime
+//    EntityManager {
+//        id: entityManager
+//        entityContainer: pernarEscape
+//    }
+
 }
 
 
