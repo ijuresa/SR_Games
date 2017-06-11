@@ -30,14 +30,14 @@ Common.LevelBase {
     BackgroundMusic {
         id: backgroundMusic
         autoPlay: false
-       // source: "../../assets/PernarEscape/audio/quakBackground.wav"
+        source: "../../assets/PernarEscape/audio/quakBackground.wav"
     }
 
     // Pernar pop
-    SoundEffectVPlay {
+    /*SoundEffectVPlay {
         id: pernarCry
         source: "../../assets/PernarEscape/audio/GospodinPernar.wav"
-    }
+    }*/
 
     // Left Wall
     Wall {
@@ -54,7 +54,7 @@ Common.LevelBase {
     // Ceiling
     Wall {
         width: parent.width
-        anchors.bottom: parent.top
+        anchors.top: parent.top
         anchors.left: parent.left
 
         BoxCollider {
@@ -78,7 +78,7 @@ Common.LevelBase {
     // Reset Game ( Timer )
     function resetGame() {
         // Reset Pernars     
-        entityManager.removeAllEntities()
+        entityManager.removeEntitiesByFilter("character")
         startGame()
     }
 
@@ -168,6 +168,16 @@ Common.LevelBase {
         color: "white"
         font.pixelSize: 30
         text: score
+    }
+
+    Timer {
+        id: musicTimer
+        running: true
+        repeat: true
+        interval: 1000
+        onTriggered: {
+            backgroundMusic.play();
+        }
     }
 }
 

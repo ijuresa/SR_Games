@@ -748,6 +748,16 @@ Common.LevelBase {
         autoPlay: false
     }
 
+    Timer {
+        id: musicTimer
+        running: true
+        repeat: true
+        interval: 1000
+        onTriggered: {
+            spockLizardMusic.play();
+        }
+    }
+
     function turnBackgroundMusicOn() {
         spockLizardMusic.play()
     }

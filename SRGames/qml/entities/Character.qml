@@ -3,20 +3,30 @@ import QtQuick 2.0
 
 EntityBase {
     entityType: "character"
-    width: 70
-    height: 84
+    x: parent.width/2
+    y: parent.height+5
 
     // transformOrigin: Item.TopLeft
 
+    SoundEffectVPlay {
+        id: pernarCry
+        source: "../../assets/PernarEscape/audio/pernar.wav"
+
+    }
+
     BoxCollider {
         id: boxCollider
-        x: - width / 2
-        y: - height / 2
+        bodyType: Body.Dynamic
+        width: 70
+        height: 84
         fixture.restitution: 0.5
+        anchors.centerIn: parent
     }
 
     MultiResolutionImage {
         id: sprite
+        width: 70
+        height: 84
         source: "../../assets/PernarEscape/img/pernarFront.png"
         anchors.fill: boxCollider
     }
@@ -24,9 +34,12 @@ EntityBase {
     MouseArea {
         anchors.fill: sprite
         onPressed: {
-            pernarEscape.score ++
-            pernarEscape.pernarCry.play()
+            //pernarEscape.score ++
+            pernarCry.play()
             removeEntity()
+            console.warn("Entity kliknut"+mouseX+" "+mouseY)
         }
     }
+
+
 }
