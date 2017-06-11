@@ -13,6 +13,4 @@ Item {
 
     signal highscoreAchieved(int highscore)
     signal achievementUnlocked(string key, int amount)
-
-
 }

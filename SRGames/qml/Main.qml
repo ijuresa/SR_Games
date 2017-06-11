@@ -18,7 +18,6 @@ GameWindow {
         id: showAchivements
     }
 
-
     VPlayGameNetwork {
         id: gameNetwork
         gameId: 370
@@ -216,17 +215,11 @@ GameWindow {
     state: "menu"
     activeScene: menuScene
 
-    // state machine, takes care reversing the PropertyChanges when changing the state, like changing the opacity back to 0
     states: [
         State {
             name: "menu"
             PropertyChanges {target: menuScene; opacity: 1}
             PropertyChanges {target: window; activeScene: menuScene}
-        },
-        State {
-            name: "selectLevel"
-            PropertyChanges {target: selectLevelScene; opacity: 1}
-            PropertyChanges {target: window; activeScene: selectLevelScene}
         },
         State {
             name: "game"
@@ -248,6 +241,5 @@ GameWindow {
             PropertyChanges { target: showAchivements; opacity: 1 }
             PropertyChanges { target: window; activeScene: showAchivements }
         }
-
     ]
 }

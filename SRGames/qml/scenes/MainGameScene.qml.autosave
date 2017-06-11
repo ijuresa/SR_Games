@@ -42,11 +42,7 @@ SceneBase {
         }
     }
 
-    Connections {
-        target: activeGame
-    }
-
-    ///Spajano
+    // Spajano
     Connections {
         // only connect if a game is loaded, to prevent errors
         target: activeGame !== undefined ? activeGame : null
