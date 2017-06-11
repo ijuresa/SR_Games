@@ -3,19 +3,21 @@ import QtQuick 2.0
 
 EntityBase {
     entityType: "character"
+    width: 70
+    height: 84
+
+    transformOrigin: Item.TopLeft
 
     BoxCollider {
-        anchors.fill: parent
-        // height: sprite.height
-        // width: sprite.width
-        // bodyType: Body.Dynamic
-        anchors.centerIn: parent
+        id: boxCollider
+        x: - width / 2
+        y: - height / 2
     }
 
     MultiResolutionImage {
         id: sprite
         source: "../../assets/PernarEscape/img/pernarFront.png"
-        anchors.centerIn: parent
+        anchors.fill: boxCollider
     }
 
     MouseArea {
@@ -24,11 +26,6 @@ EntityBase {
         onPressed: {
             // TODO: Pressed event
         }
-    }
-
-    Component.onCompleted: {
-        x = pernarEscape.width
-        y = utils.generateRandomValueBetween(15, pernarEscape.height - 15)
     }
 
 

@@ -54,13 +54,6 @@ Common.LevelBase {
         anchors.left: parent.left
     }
 
-    // Floor
-    Wall {
-        width: parent.width
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-    }
-
     // Start game ( Timer )
     function startGame() {
         backgroundMusic.play()
@@ -95,33 +88,33 @@ Common.LevelBase {
         }
     }
 
-//    Timer {
-//        id: spawnCharacters
-//        interval: 20
-//        repeat: true
+    function generateCharacters() {
 
-//        onTriggered: {
-//            entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Character.qml"))
-//            numberOfCharacters ++
-//            if(numberOfCharacters == 50) {
-//                running = false
-//                gameRunning = true
-//            }
-//        }
-//    }
+    }
 
-//    Text {
-//        id: infoText
-//        anchors.bottom: parent.bottom
-//        height: 40
-//        text: "Char "+ numberOfCharacters
-//    }
+    Character {
+        x: pernarEscape.width / 2
+        y: 50
+    }
 
-    // Create entities at runtime
-//    EntityManager {
-//        id: entityManager
-//        entityContainer: pernarEscape
-//    }
+    Timer {
+        id: entityTimer
+        interval: 1000
+        running: true
+        repeat: true
+
+        onTriggered: {
+            var newEntityProperties = {
+                x: Math.random() * (pernarEscape.width - 2 * 50) + 50,
+                y: 50,
+                rotation: Math.random() * 360
+            }
+
+            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl(
+                              "../entities/Character.qml"),
+                              newEntityProperties);
+        }
+    }
 
 }
 
