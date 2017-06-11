@@ -41,6 +41,10 @@ SceneBase {
         }
     }
 
+    Connections {
+        target: activeGame
+    }
+
     ///Spajano
     Connections {
         // only connect if a game is loaded, to prevent errors

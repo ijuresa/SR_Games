@@ -513,7 +513,7 @@ Common.LevelBase {
         scoreCurr = 0;
     }
 
-    onAchievementUnlock: {
+    onAchievementUnlocked: {
         achiText = "Achievement Unlocked"
     }
 
