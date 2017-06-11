@@ -483,6 +483,7 @@ Common.LevelBase {
             }
         }
 
+        //Game control and game time timer
         Timer {
             id: playTimer
             running: true
