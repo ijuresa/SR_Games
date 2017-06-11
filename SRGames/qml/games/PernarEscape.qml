@@ -116,6 +116,11 @@ Common.LevelBase {
         }
     }
 
+    EntityManager {
+        id: entityManager
+        entityContainer: pernarEscape
+    }
+
 }
 
 
