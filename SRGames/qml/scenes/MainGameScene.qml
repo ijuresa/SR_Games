@@ -40,10 +40,27 @@ SceneBase {
         }
     }
 
+    ///Spajano
     Connections {
-        target: activeGame
-        onAchievementUnlock: {
+        // only connect if a game is loaded, to prevent errors
+        target: activeGame !== undefined ? activeGame : null
+        // increase the score when the rectangle is clicked
+        onHighscoreAchieved: {
+            gameNetwork.reportScore(highscore);
+            console.error("triggered Highscore with score:" + highscore)
+            }
+        onAchievementUnlocked: {
+            if(amount>0){
+                gameNetwork.incrementAchievement(key, amount, true)
+            }
+            else{
+                gameNetwork.unlockAchievement(key, true)
+            }
+
+
         }
+
+
     }
 
     Timer {
@@ -53,6 +70,8 @@ SceneBase {
             countdown--
         }
     }
+
+
 
     onBackButtonPressed: {
         activeGameFileName = ""
