@@ -41,9 +41,16 @@ SceneBase {
     }
 
     Connections {
-        target: activeGame
-        onAchievementUnlock: {
+        // only connect if a game is loaded, to prevent errors
+        target: activeGame !== undefined ? activeGame : null
+        // increase the score when the rectangle is clicked
+        onHighscoreAchieved: {
+            gameNetwork.reportScore(highscore);
+            console.error("triggered Highscore with score:" + highscore)
+            gameNetwork.unlockAchievement("heliScore20Fire", true)
         }
+
+
     }
 
     Timer {
@@ -53,6 +60,8 @@ SceneBase {
             countdown--
         }
     }
+
+
 
     onBackButtonPressed: {
         activeGameFileName = ""
