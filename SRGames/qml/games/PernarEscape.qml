@@ -11,6 +11,8 @@ Common.LevelBase {
     id: pernarEscape
 
     property int numberOfCharacters: 0
+    property int score: 0
+    property int maxScore: 0
 
     property bool gameRunning: false
 
@@ -28,11 +30,12 @@ Common.LevelBase {
     BackgroundMusic {
         id: backgroundMusic
         autoPlay: false
-        source: "../../assets/PernarEscape/audio/quakBackground.wav"
+       // source: "../../assets/PernarEscape/audio/quakBackground.wav"
     }
 
     // Pernar pop
     SoundEffectVPlay {
+        id: pernarCry
         source: "../../assets/PernarEscape/audio/GospodinPernar.wav"
     }
 
@@ -63,7 +66,6 @@ Common.LevelBase {
 
     // Start game ( Timer )
     function startGame() {
-
         gameRunning = true
         backgroundMusic.play()
         entityTimer.start()
@@ -75,14 +77,20 @@ Common.LevelBase {
 
     // Reset Game ( Timer )
     function resetGame() {
-        // Reset Pernars
-//        pervanCharacter.removeAllEntities()
+        // Reset Pernars     
+        entityManager.removeAllEntities()
         startGame()
     }
 
     function gameLost() {
         gameRunning = false
         entityTimer.stop()
+
+        // Check if it is new highscore
+        if(score > maxScore) {
+//            maxScore = score
+        }
+
 //        physicsId.running = false
     }
 
@@ -114,7 +122,7 @@ Common.LevelBase {
     }
 
     //Menu nakon završetka igre
-    Column{
+    Column {
         anchors.centerIn: parent
         spacing: 10
         enabled: gameRunning ? false : true
@@ -135,6 +143,31 @@ Common.LevelBase {
 
             onClicked: backButtonPressed()
         }
+    }
+
+    // Display max score
+    Text {
+        id: maxScore
+        anchors.top: parent.top
+        anchors.topMargin: 10
+
+        anchors.left: maxScoreText.right
+        anchors.leftMargin: 10
+
+        color: "white"
+        font.pixelSize: 25
+        text: maxScore
+    }
+
+    // Current score
+    Text {
+        id: score
+        anchors.centerIn: parent
+        anchors.verticalCenterOffset: 80
+
+        color: "white"
+        font.pixelSize: 30
+        text: score
     }
 }
 

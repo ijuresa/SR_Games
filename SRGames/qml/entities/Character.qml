@@ -6,12 +6,13 @@ EntityBase {
     width: 70
     height: 84
 
-    transformOrigin: Item.TopLeft
+    // transformOrigin: Item.TopLeft
 
     BoxCollider {
         id: boxCollider
         x: - width / 2
         y: - height / 2
+        fixture.restitution: 0.5
     }
 
     MultiResolutionImage {
@@ -23,6 +24,8 @@ EntityBase {
     MouseArea {
         anchors.fill: sprite
         onPressed: {
+            pernarEscape.score ++
+            pernarEscape.pernarCry.play()
             removeEntity()
         }
     }

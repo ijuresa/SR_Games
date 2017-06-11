@@ -18,10 +18,6 @@ GameWindow {
         id: spockLizardGame
     }
 
-//    PernarEscape {
-//        id: pernarEscape
-//    }
-
     ShowAchivements {
         id: showAchivements
     }
@@ -156,7 +152,6 @@ GameWindow {
         // Button Listener
         // Changes scenes according to button click
         onSelectGamePressed: window.state = "selectGame"
-        onSelectLevelPressed: window.state = "selectLevel"
         onShowAchivementsPressed: window.state = "achievements"
 
         // When user wants to exit from MENU scene
@@ -174,17 +169,6 @@ GameWindow {
         }
     }
 
-    // scene for selecting levels
-    SelectLevelScene {
-        id: selectLevelScene
-        onLevelPressed: {
-            // selectedLevel is the parameter of the levelPressed signal
-            gameScene.setLevel(selectedLevel)
-            window.state = "game"
-        }
-        onBackButtonPressed: window.state = "menu"
-    }
-
     // Select Game Scene
     SelectGameScene {
         id: selectGameScene
@@ -199,12 +183,6 @@ GameWindow {
     MainGameScene {
         id: mainGameScene
         onBackButtonPressed: window.state = "selectGame"
-    }
-
-    // game scene to play a level
-    GameScene {
-        id: gameScene
-        onBackButtonPressed: window.state = "selectLevel"
     }
 
     // Initially active scene
