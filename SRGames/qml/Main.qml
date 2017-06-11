@@ -24,6 +24,7 @@ GameWindow {
         id: gameNetwork
         gameId: 369
         secret: "12345678987654321"
+        gameNetworkView: showAchivements.gameNetworkView
 
         Component.onCompleted: {
             // Put here achievements
