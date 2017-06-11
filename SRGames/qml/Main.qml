@@ -14,10 +14,9 @@ GameWindow {
         id: entityManager
     }
 
-
     ShowAchivements {
-    id: showAchivements
-}
+        id: showAchivements
+    }
 
 
     VPlayGameNetwork {
