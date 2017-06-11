@@ -51,7 +51,7 @@ Common.LevelBase {
     BackgroundMusic {
         id: heliSound
         source:  "../../assets/HelicopterClimb/sound/heliSound.wav"
-        autoPlay: true
+        autoPlay: false
     }
 
     //Postavke fizike
@@ -247,10 +247,7 @@ Common.LevelBase {
             bodyType: Body.Dynamic
             anchors.centerIn: parent
             force:Qt.point(forceX,forceY)
-            fixture.onBeginContact:
-            {
-                heliSound.play()
-            }
+
         }
 
 
@@ -478,12 +475,15 @@ Common.LevelBase {
             repeat: true
             interval: 1000
             onTriggered: {
+
                 heliSound.play();
-                console.warn(heli1.x+","+heli1.y);
+                //console.warn(heli1.x+","+heli1.y);
             }
         }
 
         //Game control and game time timer
+        //When else is triggered, time reached 0
+        //Highscore should be sent as signal to mainGameScene
         Timer {
             id: playTimer
             running: true
@@ -495,6 +495,7 @@ Common.LevelBase {
                 }
                 else{
                     stopGame();
+                    highscoreAchieved(score);
                 }
             }
         }

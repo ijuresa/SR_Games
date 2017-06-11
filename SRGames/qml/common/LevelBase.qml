@@ -8,8 +8,11 @@ Item {
     property int spockMarginLeft: 7
     // this is emitted whenever the rectangle has been tapped successfully, the GameScene will listen to this signal and increase the score
     signal rectanglePressed
+    property int score
+    property bool name: value
 
-    signal achievementUnlock(int id)
-    // Signals
+    signal highscoreAchieved(int highscore)
+    signal achievementUnlocked(string key, int amount)
+
 
 }

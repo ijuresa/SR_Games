@@ -14,19 +14,16 @@ GameWindow {
         id: entityManager
     }
 
-    SpockLizard {
-        id: spockLizardGame
-    }
-
     ShowAchivements {
         id: showAchivements
     }
 
+
     VPlayGameNetwork {
         id: gameNetwork
-        gameId: 369
-        secret: "12345678987654321"
-        gameNetworkView: showAchievementsScene.gameNetworkView
+        gameId: 370
+        secret: "jucapuca"
+        gameNetworkView: showAchivements.gameNetworkView
 
         Component.onCompleted: {
             // Put here achievements
@@ -141,6 +138,36 @@ GameWindow {
                 points: 40
                 description: "Get 1000 score"
                 descriptionAfterUnlocking: "Scored 1000"
+            },
+            //////////////HelicopterClimb Scores///////////////////
+            Achievement {
+                key: "heliScore10"
+                name: ""
+                iconSource: "../../assets/RockPaper/img/score10.png"
+                target: 10
+                points: 1
+                description: "Get 30 score"
+                descriptionAfterUnlocking: "Scored 30"
+            },
+
+            Achievement {
+                key: "heliScore100"
+                name: "RoflCopter"
+                iconSource: "../../assets/RockPaper/img/baseCoins50.png"
+                target: 100
+                points: 50
+                description: "Get 100 score"
+                descriptionAfterUnlocking: "You are really good at being tard"
+            },
+
+            Achievement {
+                key: "heliFire"
+                name: "Firebender"
+                iconSource: "../../assets/particleFire_32.png"
+                target: 1
+                points: 5
+                description: "Set helicopter afire!"
+                descriptionAfterUnlocking: "Hot, hot, hot!"
             }
         ]
     }
