@@ -34,7 +34,7 @@ SceneBase {
         }
 
         MenuButton {
-            text: "Show Achivements"
+            text: "Show Achievements"
             onClicked: showAchivementsPressed()
 
         }

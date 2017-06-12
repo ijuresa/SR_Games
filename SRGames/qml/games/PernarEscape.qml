@@ -121,15 +121,15 @@ Common.LevelBase {
                 y: parent.height + 30,
             }
 
-            if(cobanSpawn %3 == 0) {
+
+            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl(
+                              "../entities/Cobankovic.qml"),
+                              newEntityProperties);
+             /*else {
                 entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl(
                                   "../entities/Character.qml"),
                                   newEntityProperties);
-            } else {
-                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl(
-                                  "../entities/Character.qml"),
-                                  newEntityProperties);
-            }
+            }*/
 
         }
     }

@@ -22,7 +22,7 @@ EntityBase {
         id: sprite
         width: 70
         height: 84
-        source: "../../assets/PernarEscape/img/pernarFront.png"
+        source: "../../assets/PernarEscape/img/cobankovic.png"
         anchors.fill: boxCollider
     }
 
