@@ -2,12 +2,18 @@ import VPlay 2.0
 import QtQuick 2.0
 
 EntityBase {
-
-    entityId: "entity"
-    entityType: "cobankovic"
-
+    entityType: "character"
     x: parent.width/2
     y: parent.height+5
+
+    // transformOrigin: Item.TopLeft
+
+    property alias source: sprite.source
+
+    SoundEffectVPlay {
+        id: pernarCry
+        source: "../../assets/PernarEscape/audio/pernar.wav"
+    }
 
     BoxCollider {
         id: boxCollider
@@ -29,8 +35,9 @@ EntityBase {
     MouseArea {
         anchors.fill: sprite
         onPressed: {
-            pernarEscape.currScore += 5
+            pernarEscape.currScore ++
             console.warn("Score++" + pernarEscape.currScore)
+            pernarCry.play()
             removeEntity()
             console.warn("Entity kliknut"+mouseX+" "+mouseY)
         }

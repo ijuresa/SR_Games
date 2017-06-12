@@ -141,8 +141,8 @@ Common.LevelBase {
                 y: parent.height + 30,
             }
 
-            newEntityManager.createEntityFromUrlWithProperties(
-                        Qt.resolvedUrl("../entities/Character.qml"),
+            entityManager.createEntityFromUrlWithProperties(
+                        Qt.resolvedUrl("../entities/Cobo.qml"),
                                        newEntityProperties2);
         }
     }
