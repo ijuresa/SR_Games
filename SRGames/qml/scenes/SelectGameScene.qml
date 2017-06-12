@@ -17,7 +17,7 @@ SceneBase {
     // background
     Rectangle {
         anchors.fill: parent.gameWindowAnchorItem
-        color: "#47688e"
+        color: "#ffffff"
     }
 
     // back button to leave scene
@@ -25,6 +25,7 @@ SceneBase {
         text: "Back"
         id: backButtonMenu
         width: 100
+        color: "#f12d2d"
         // anchor the button to the gameWindowAnchorItem to be on the edge of the screen on any device
         anchors.right: selectGameScene.gameWindowAnchorItem.right
         anchors.rightMargin: 10
@@ -68,7 +69,7 @@ SceneBase {
                 pernarEscape.startGame()
             }
             // TODO: Change with Pernar button
-            source: "../../assets/RockPaper/img/spockPlayButton.png"
+            source: "../../assets/PenarEscape/img/pernarEscapeButton.png"
         }
     }
 }

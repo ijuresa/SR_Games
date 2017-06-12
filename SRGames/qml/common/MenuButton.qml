@@ -20,11 +20,13 @@ Rectangle {
     // this handler is called when the button is clicked.
     signal clicked
     width: 170
-    color: "#f87cfe"
+    color: "#f12d2d"
 
     Text {
         id: buttonText
+        height: 34
         anchors.centerIn: parent
+        font.pixelSize: 22
         color: "black"
     }
 
