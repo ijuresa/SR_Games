@@ -11,10 +11,13 @@ Common.LevelBase {
     id: pernarEscape
 
     property int numberOfCharacters: 0
-    property int score: 0
+    property int currScore: 0
     property int maxScore: 0
 
     property bool gameRunning: false
+
+    property int gameMode: 0
+    property int cobanSpawn: 0
 
 
     PhysicsWorld {
@@ -22,6 +25,11 @@ Common.LevelBase {
         gravity.y: -1
         debugDrawVisible: false
     }
+
+    function incrementGravity() {
+        physicsId.gravity.y *= 1.05
+    }
+
 
     Image {
         source: "../../assets/PernarEscape/img/pernarBackground.jpg"
@@ -34,10 +42,10 @@ Common.LevelBase {
     }
 
     // Pernar pop
-    /*SoundEffectVPlay {
+    SoundEffectVPlay {
         id: pernarCry
         source: "../../assets/PernarEscape/audio/GospodinPernar.wav"
-    }*/
+    }
 
     // Left Wall
     Wall {
@@ -83,12 +91,14 @@ Common.LevelBase {
     }
 
     function gameLost() {
+        entityManager.removeEntitiesByFilter("character")
         gameRunning = false
         entityTimer.stop()
 
         // Check if it is new highscore
-        if(score > maxScore) {
-//            maxScore = score
+        if(currScore > maxScore) {
+            maxScore = currScore
+            console.warn("MaxScore" + maxScore)
         }
 
 //        physicsId.running = false
@@ -105,14 +115,22 @@ Common.LevelBase {
         repeat: true
 
         onTriggered: {
+            cobanSpawn += 3
             var newEntityProperties = {
                 x: Math.random() * (parent.width - 50) + 50,
                 y: parent.height + 30,
             }
 
-            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl(
-                              "../entities/Character.qml"),
-                              newEntityProperties);
+            if(cobanSpawn %3 == 0) {
+                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl(
+                                  "../entities/Character.qml"),
+                                  newEntityProperties);
+            } else {
+                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl(
+                                  "../entities/Character.qml"),
+                                  newEntityProperties);
+            }
+
         }
     }
 
@@ -130,7 +148,7 @@ Common.LevelBase {
 
         //Button za ponovno pokretanje igre
         Common.MenuButton{
-            text: "Play Again"
+            text: "Play"
 
             onClicked: {
                 resetGame()
@@ -139,15 +157,14 @@ Common.LevelBase {
 
         //Button za ponovno pokretanje igre
         Common.MenuButton{
-            text: ":("
-
+            text: "Quit"
             onClicked: backButtonPressed()
         }
     }
 
     // Display max score
     Text {
-        id: maxScore
+        id: maxScoree
         anchors.top: parent.top
         anchors.topMargin: 10
 
@@ -167,7 +184,7 @@ Common.LevelBase {
 
         color: "white"
         font.pixelSize: 30
-        text: score
+        text: currScore
     }
 
     Timer {
@@ -176,6 +193,13 @@ Common.LevelBase {
         repeat: true
         interval: 1000
         onTriggered: {
+            gameMode ++
+
+            if(gameMode >= 10) {
+                incrementGravity()
+                console.warn("Gravity Incremented:" + physicsId.gravity.y)
+            }
+
             backgroundMusic.play();
         }
     }

@@ -34,11 +34,6 @@ SceneBase {
         }
 
         MenuButton {
-            text: "Levels"
-            onClicked: selectLevelPressed()
-        }
-
-        MenuButton {
             text: "Show Achivements"
             onClicked: showAchivementsPressed()
 
