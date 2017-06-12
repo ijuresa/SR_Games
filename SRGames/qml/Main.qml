@@ -145,7 +145,7 @@ GameWindow {
                 iconSource: "../../assets/RockPaper/img/score10.png"
                 target: 10
                 points: 1
-                description: "Get 30 score"
+                description: "Get 10 score"
                 descriptionAfterUnlocking: "Scored 30"
             },
 

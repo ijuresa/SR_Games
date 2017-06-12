@@ -358,13 +358,13 @@ Common.LevelBase {
             outcomeOfTheRound = winner
             soundChooser ++
             if(soundChooser == 3) {
-                gameNetwork.unlockAchievement("SpockKillingSpree", true)
+                achievementUnlocked("SpockKillingSpree", 0)
                 unrealKillingSpree.play()
             } else if(soundChooser == 5) {
-                gameNetwork.unlockAchievement("SpockRampage", true)
+                achievementUnlocked("SpockRampage", 0)
                 unrealRampage.play()
             } else if(soundChooser == 9) {
-                gameNetwork.unlockAchievement("SpockGodlike", true)
+                achievementUnlocked("SpockGodlike", 0)
                 unrealGodlike.play()
             } else if(soundChooser%4 == 0) {
                 unrealMonsterKill.play()
@@ -495,19 +495,19 @@ Common.LevelBase {
             scoreMax = scoreCurr
         }
         overallScore += scoreCurr
-        gameNetwork.incrementAchievement("scoreOverall50", overallScore, true)
-        gameNetwork.incrementAchievement("scoreOverall100", overallScore, true)
-        gameNetwork.incrementAchievement("scoreOverall500", overallScore, true)
-        gameNetwork.incrementAchievement("scoreOverall1000", overallScore, true)
+        achievementUnlocked("scoreOverall50", overallScore)
+        achievementUnlocked("scoreOverall100", overallScore)
+        achievementUnlocked("scoreOverall500", overallScore)
+        achievementUnlocked("scoreOverall1000", overallScore)
         // OverallScore achievement
         if(overallScore >= 50) {
-            gameNetwork.unlockAchievement("scoreOverall50", true)
+             achievementUnlocked("scoreOverall50", 0)
         } else if(overallScore >= 100) {
-            gameNetwork.unlockAchievement("scoreOverall100", true)
+             achievementUnlocked("scoreOverall100", 0)
         } else if(overallScore >= 500) {
-            gameNetwork.unlockAchievement("scoreOverall500", true)
+             achievementUnlocked("scoreOverall500", 0)
         } else if(overallScore >= 1000) {
-            gameNetwork.unlockAchievement("scoreOverall1000", true)
+             achievementUnlocked("scoreOverall1000", 0)
         }
 
         scoreCurr = 0;
@@ -662,11 +662,11 @@ Common.LevelBase {
 
         // Current Score achievement
         if(scoreCurr >= 4) {
-            gameNetwork.unlockAchievement("score4", true)
+            achievementUnlocked("score4", 0)
         } else if(scoreCurr >= 6) {
-            gameNetwork.unlockAchievement("score6", true)
+            achievementUnlocked("score6", 0)
         } else if(scoreCurr >= 10) {
-            gameNetwork.unlockAchievement("score10", true)
+            achievementUnlocked("score10", 0)
         }
     }
 

@@ -3,12 +3,11 @@ import QtQuick 2.0
 Rectangle {
     id: button
     // this will be the default size, it is same size as the contained text + some padding
-    implicitWidth: 100
-    implicitHeight: 25
+    implicitWidth: 125
+    implicitHeight: 50
 
-    color: "#e9e9e9"
     // round edges
-    radius: 10
+    radius: 15
 
     // the horizontal margin from the Text element to the Rectangle at both the left and the right side.
     property int paddingHorizontal: 10
@@ -20,11 +19,12 @@ Rectangle {
 
     // this handler is called when the button is clicked.
     signal clicked
+    width: 170
+    color: "#f87cfe"
 
     Text {
         id: buttonText
         anchors.centerIn: parent
-        font.pixelSize: 18
         color: "black"
     }
 

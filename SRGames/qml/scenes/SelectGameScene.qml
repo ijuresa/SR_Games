@@ -23,6 +23,8 @@ SceneBase {
     // back button to leave scene
     MenuButton {
         text: "Back"
+        id: backButtonMenu
+        width: 100
         // anchor the button to the gameWindowAnchorItem to be on the edge of the screen on any device
         anchors.right: selectGameScene.gameWindowAnchorItem.right
         anchors.rightMargin: 10
@@ -34,6 +36,8 @@ SceneBase {
     Column {
         spacing: 18
         anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: backButtonMenu.bottom
+        anchors.topMargin: 10
         height: menuItem.height
 
         SelectGameSceneButton {

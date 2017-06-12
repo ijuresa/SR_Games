@@ -40,6 +40,25 @@ Common.LevelBase {
         sensorGesture.enabled = false;
     }
 
+    function checkAchievements(){
+        swith(score)
+        {
+            switch(score) {
+            case 20:
+                achievementUnlocked("heliFire", 0)
+                break;
+            case 10:
+                achievementUnlocked("heliScore10", 0)
+                break;
+            case 3:
+                achievementUnlocked("heliScore100", 0)
+                break;
+            default:
+                break;
+            }
+        }
+    }
+
     //Pozadina
     BackgroundImage {
         id: backgroundImage
@@ -141,6 +160,7 @@ Common.LevelBase {
                 collisionSound.play();
                 collisionParticleEffect.start();
                 score++;
+                checkAchievements()
             }
         }
     }
