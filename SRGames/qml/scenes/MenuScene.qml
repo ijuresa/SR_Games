@@ -12,7 +12,7 @@ SceneBase {
     // background
     Rectangle {
         anchors.fill: parent.gameWindowAnchorItem
-        color: "#47688e"
+        color: "#ffffff"
     }
 
     // the "logo"
@@ -20,7 +20,7 @@ SceneBase {
         anchors.horizontalCenter: parent.horizontalCenter
         y: 30
         font.pixelSize: 30
-        color: "#e9e9e9"
+        color: "#f12d2d"
         text: "SR Games"
     }
 

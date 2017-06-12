@@ -24,7 +24,7 @@ SceneBase {
     // background
     Rectangle {
         anchors.fill: parent.gameWindowAnchorItem
-        color: "#47688e"
+        color: "red"
     }
 
     Loader {

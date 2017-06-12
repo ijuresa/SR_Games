@@ -69,7 +69,7 @@ SceneBase {
                 pernarEscape.startGame()
             }
             // TODO: Change with Pernar button
-            source: "../../assets/PenarEscape/img/pernarEscapeButton.png"
+            source: "../../assets/PernarEscape/img/pernarEscapeButton.png"
         }
     }
 }

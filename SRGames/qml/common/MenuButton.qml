@@ -19,7 +19,7 @@ Rectangle {
 
     // this handler is called when the button is clicked.
     signal clicked
-    width: 170
+    width: 190
     color: "#f12d2d"
 
     Text {
@@ -27,7 +27,7 @@ Rectangle {
         height: 34
         anchors.centerIn: parent
         font.pixelSize: 22
-        color: "black"
+        color: "white"
     }
 
     MouseArea {
