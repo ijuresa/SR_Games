@@ -8,10 +8,11 @@ EntityBase {
 
     // transformOrigin: Item.TopLeft
 
+    property alias source: sprite.source
+
     SoundEffectVPlay {
         id: pernarCry
         source: "../../assets/PernarEscape/audio/pernar.wav"
-
     }
 
     BoxCollider {

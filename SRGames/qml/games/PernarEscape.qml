@@ -77,6 +77,7 @@ Common.LevelBase {
         gameRunning = true
         backgroundMusic.play()
         entityTimer.start()
+        cobarTimer.start()
     }
 
     function turnBackgroundMusicOff() {
@@ -87,6 +88,7 @@ Common.LevelBase {
     function resetGame() {
         // Reset Pernars     
         entityManager.removeEntitiesByFilter("character")
+        physicsId.gravity.y = -1
         startGame()
     }
 
@@ -94,18 +96,16 @@ Common.LevelBase {
         entityManager.removeEntitiesByFilter("character")
         gameRunning = false
         entityTimer.stop()
+        cobarTimer.stop()
 
         // Check if it is new highscore
         if(currScore > maxScore) {
             maxScore = currScore
             console.warn("MaxScore" + maxScore)
         }
+        currScore = 0
 
 //        physicsId.running = false
-    }
-
-    Character {
-        id: pervanCharacter
     }
 
     Timer {
@@ -115,23 +115,41 @@ Common.LevelBase {
         repeat: true
 
         onTriggered: {
-            cobanSpawn += 3
+            cobanSpawn ++
+
             var newEntityProperties = {
                 x: Math.random() * (parent.width - 50) + 50,
                 y: parent.height + 30,
             }
 
-
-            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl(
-                              "../entities/Cobankovic.qml"),
-                              newEntityProperties);
-             /*else {
-                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl(
-                                  "../entities/Character.qml"),
-                                  newEntityProperties);
-            }*/
-
+            entityManager.createEntityFromUrlWithProperties(
+                        Qt.resolvedUrl("../entities/Character.qml"),
+                                       newEntityProperties);
         }
+    }
+
+    Timer {
+        id: cobarTimer
+        interval: 3500
+        running: true
+        repeat: true
+
+        onTriggered: {
+            console.warn("Coban Timer Triggered")
+            var newEntityProperties2 = {
+                x: Math.random() * (parent.width - 50) + 50,
+                y: parent.height + 30,
+            }
+
+            newEntityManager.createEntityFromUrlWithProperties(
+                        Qt.resolvedUrl("../entities/Character.qml"),
+                                       newEntityProperties2);
+        }
+    }
+
+    EntityManager {
+        id: newEntityManager
+        entityContainer: pernarEscape
     }
 
     EntityManager {
@@ -168,7 +186,6 @@ Common.LevelBase {
         anchors.top: parent.top
         anchors.topMargin: 10
 
-        anchors.left: maxScoreText.right
         anchors.leftMargin: 10
 
         color: "white"
@@ -193,13 +210,14 @@ Common.LevelBase {
         repeat: true
         interval: 1000
         onTriggered: {
-            gameMode ++
+            if(gameRunning) {
+                gameMode ++
 
-            if(gameMode >= 10) {
-                incrementGravity()
-                console.warn("Gravity Incremented:" + physicsId.gravity.y)
+                if(gameMode >= 10) {
+                    incrementGravity()
+                    console.warn("Gravity Incremented:" + physicsId.gravity.y)
+                }
             }
-
             backgroundMusic.play();
         }
     }

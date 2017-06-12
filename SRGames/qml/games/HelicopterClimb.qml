@@ -62,7 +62,7 @@ Common.LevelBase {
     //Pozadina
     BackgroundImage {
         id: backgroundImage
-        source: "../../assets/HelicopterClimb/img/sky1920x1276.jpg"
+        source: "../../assets/HelicopterClimb/img/02_trees and bushes.png"
         anchors.fill: parent
     }
 

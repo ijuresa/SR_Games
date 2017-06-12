@@ -24,13 +24,12 @@ SceneBase {
     // background
     Rectangle {
         anchors.fill: parent.gameWindowAnchorItem
-        color: "red"
+        color: "#47688e"
     }
 
     Loader {
         id: loader
         source: activeGameFileName != "" ? "../games/" + activeGameFileName : ""
-
         onLoaded: {
             item.width = mainGameScene.width
             item.height = mainGameScene.height
@@ -52,8 +51,8 @@ SceneBase {
             console.error("triggered Highscore with score:" + highscore)
             }
         onAchievementUnlocked: {
-            if(amount>0){
-                gameNetwork.incrementAchievement(key, amount, true)
+            if(amount > 0){
+                //gameNetwork.incrementAchievement(key, amount, true)
             }
             else {
                 gameNetwork.unlockAchievement(key, true)
@@ -75,5 +74,4 @@ SceneBase {
         spockLizardGame.turnBackgroundMusicOff()
         pernarEscape.turnBackgroundMusicOff()
     }
-
 }

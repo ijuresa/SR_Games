@@ -495,20 +495,20 @@ Common.LevelBase {
             scoreMax = scoreCurr
         }
         overallScore += scoreCurr
-        achievementUnlocked("scoreOverall50", overallScore)
-        achievementUnlocked("scoreOverall100", overallScore)
-        achievementUnlocked("scoreOverall500", overallScore)
-        achievementUnlocked("scoreOverall1000", overallScore)
-        // OverallScore achievement
-        if(overallScore >= 50) {
-             achievementUnlocked("scoreOverall50", 0)
-        } else if(overallScore >= 100) {
-             achievementUnlocked("scoreOverall100", 0)
-        } else if(overallScore >= 500) {
-             achievementUnlocked("scoreOverall500", 0)
-        } else if(overallScore >= 1000) {
-             achievementUnlocked("scoreOverall1000", 0)
-        }
+//        achievementUnlocked("scoreOverall50", overallScore)
+//        achievementUnlocked("scoreOverall100", overallScore)
+//        achievementUnlocked("scoreOverall500", overallScore)
+//        achievementUnlocked("scoreOverall1000", overallScore)
+//        // OverallScore achievement
+//        if(overallScore >= 50) {
+//             achievementUnlocked("scoreOverall50", 0)
+//        } else if(overallScore >= 100) {
+//             achievementUnlocked("scoreOverall100", 0)
+//        } else if(overallScore >= 500) {
+//             achievementUnlocked("scoreOverall500", 0)
+//        } else if(overallScore >= 1000) {
+//             achievementUnlocked("scoreOverall1000", 0)
+//        }
 
         scoreCurr = 0;
     }
@@ -694,9 +694,9 @@ Common.LevelBase {
     // Text Display achivement
     Text {
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: 160
+        anchors.verticalCenterOffset: -160
         color: "white"
-        font.pixelSize: 70
+        font.pixelSize: 20
         text: roundOverTimer > 0 ? achiText : ""
     }
 

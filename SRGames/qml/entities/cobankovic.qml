@@ -35,5 +35,4 @@ EntityBase {
             console.warn("Entity kliknut"+mouseX+" "+mouseY)
         }
     }
-
 }
